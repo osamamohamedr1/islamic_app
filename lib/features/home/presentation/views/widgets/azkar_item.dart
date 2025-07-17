@@ -1,0 +1,56 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:islamic_app/core/themes/colors_manger.dart';
+
+class AzkarItem extends StatelessWidget {
+  const AzkarItem({
+    super.key,
+    required this.title,
+    required this.iconPath,
+    this.onTap,
+  });
+
+  final String title;
+  final String iconPath;
+  final void Function()? onTap;
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        width: 90.w,
+        height: 90.h,
+        padding: const EdgeInsets.all(12),
+        margin: EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: ColorsManger.lightGrey,
+              offset: const Offset(0, 2.5),
+              spreadRadius: 4,
+              blurRadius: 10,
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(iconPath),
+            Text(
+              title,
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                fontSize: 14.sp,
+                fontWeight: FontWeight.w600,
+                color: ColorsManger.primary,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

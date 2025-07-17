@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:islamic_app/core/themes/colors_manger.dart';
-import 'package:islamic_app/features/home/presentation/manger/cubit/prayers_time_cubit.dart';
+import 'package:islamic_app/features/home/presentation/manger/prayer_time_cubit/prayers_time_cubit.dart';
 import 'package:islamic_app/features/home/presentation/views/widgets/prayer_time_item.dart';
 
 class PrayerTimesRow extends StatelessWidget {

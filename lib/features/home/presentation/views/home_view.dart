@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:islamic_app/features/home/data/repos/home_repo.dart';
-import 'package:islamic_app/features/home/presentation/manger/cubit/prayers_time_cubit.dart';
+import 'package:islamic_app/features/home/data/repos/prayers_time_repo.dart';
+import 'package:islamic_app/features/home/presentation/manger/prayer_time_cubit/prayers_time_cubit.dart';
+import 'package:islamic_app/features/home/presentation/views/widgets/all_custom_container.dart';
+import 'package:islamic_app/features/home/presentation/views/widgets/azkar_section.dart';
 import 'package:islamic_app/features/home/presentation/views/widgets/comming_prayer_time.dart';
 import 'package:islamic_app/features/home/presentation/views/widgets/prayer_times_row.dart';
 import 'package:jhijri/_src/_jHijri.dart';
@@ -22,21 +24,31 @@ class HomeView extends StatelessWidget {
 
       child: Scaffold(
         appBar: homeAppBar(formattedDate, context),
-        body: Column(
-          spacing: 16,
-          children: [
-            PrayerTimesRow(),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(children: [CommingPrayerFrame()]),
-            ),
-          ],
+        body: SingleChildScrollView(
+          child: Column(
+            spacing: 16,
+            children: [
+              PrayerTimesRow(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Column(
+                  spacing: 16,
+                  children: [
+                    CommingPrayerFrame(),
+                    AllCustomContainer(),
+                    AzkarCategorySection(),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
   AppBar homeAppBar(String formattedDate, BuildContext context) => AppBar(
+    scrolledUnderElevation: 0,
     title: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

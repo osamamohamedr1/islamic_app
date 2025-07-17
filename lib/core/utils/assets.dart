@@ -30,6 +30,14 @@ class Assets {
   /// assets/svgs/asr.svg
   static const String svgsAsr = "assets/svgs/asr.svg";
 
+  /// Assets for svgsDifferentAzkar
+  /// assets/svgs/different_azkar.svg
+  static const String svgsDifferentAzkar = "assets/svgs/different_azkar.svg";
+
+  /// Assets for svgsDoua
+  /// assets/svgs/doua.svg
+  static const String svgsDoua = "assets/svgs/doua.svg";
+
   /// Assets for svgsEsha
   /// assets/svgs/esha.svg
   static const String svgsEsha = "assets/svgs/esha.svg";
@@ -37,6 +45,10 @@ class Assets {
   /// Assets for svgsFajr
   /// assets/svgs/fajr.svg
   static const String svgsFajr = "assets/svgs/fajr.svg";
+
+  /// Assets for svgsFavorite
+  /// assets/svgs/favorite.svg
+  static const String svgsFavorite = "assets/svgs/favorite.svg";
 
   /// Assets for svgsHome
   /// assets/svgs/home.svg
@@ -46,9 +58,29 @@ class Assets {
   /// assets/svgs/mghreb.svg
   static const String svgsMghreb = "assets/svgs/mghreb.svg";
 
+  /// Assets for svgsMorningAzkar
+  /// assets/svgs/morning_azkar.svg
+  static const String svgsMorningAzkar = "assets/svgs/morning_azkar.svg";
+
+  /// Assets for svgsNearestMosque
+  /// assets/svgs/nearest_mosque.svg
+  static const String svgsNearestMosque = "assets/svgs/nearest_mosque.svg";
+
+  /// Assets for svgsNightAzkar
+  /// assets/svgs/night_azkar.svg
+  static const String svgsNightAzkar = "assets/svgs/night_azkar.svg";
+
+  /// Assets for svgsPrayerAzkar
+  /// assets/svgs/prayer_azkar.svg
+  static const String svgsPrayerAzkar = "assets/svgs/prayer_azkar.svg";
+
   /// Assets for svgsShrok
   /// assets/svgs/shrok.svg
   static const String svgsShrok = "assets/svgs/shrok.svg";
+
+  /// Assets for svgsTasbeh
+  /// assets/svgs/tasbeh.svg
+  static const String svgsTasbeh = "assets/svgs/tasbeh.svg";
 
   /// Assets for svgsZhr
   /// assets/svgs/zhr.svg

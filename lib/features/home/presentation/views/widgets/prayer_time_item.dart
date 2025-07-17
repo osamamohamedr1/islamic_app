@@ -11,11 +11,14 @@ class PrayerTimeItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 85,
-      width: 50,
+      margin: EdgeInsets.symmetric(vertical: 5),
+      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: prayerModel.isComming ? Colors.lightBlue : Colors.transparent,
+        color: prayerModel.isComming
+            ? ColorsManger.darkBLue
+            : Colors.transparent,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -33,7 +36,7 @@ class PrayerTimeItem extends StatelessWidget {
             style: Theme.of(context).textTheme.bodySmall!.copyWith(
               fontSize: 16,
               fontWeight: prayerModel.isComming
-                  ? FontWeight.w700
+                  ? FontWeight.w800
                   : FontWeight.w500,
               color: prayerModel.isComming ? Colors.white : ColorsManger.grey,
             ),
