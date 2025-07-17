@@ -10,10 +10,7 @@ class AppThemes {
       primary: ColorsManger.primary,
       secondary: ColorsManger.darkBLue,
     ),
-    appBarTheme: AppBarTheme(
-      backgroundColor: ColorsManger.primary,
-      titleTextStyle: TextStyle(color: Colors.white, fontSize: 20),
-    ),
+    appBarTheme: AppBarTheme(backgroundColor: ColorsManger.offWhite),
     textTheme: TextTheme(
       titleLarge: TextStyle(
         color: ColorsManger.darkBLue,
@@ -23,6 +20,11 @@ class AppThemes {
       titleMedium: TextStyle(
         color: ColorsManger.darkBLue,
         fontSize: 24,
+        fontWeight: FontWeight.bold,
+      ),
+      titleSmall: TextStyle(
+        color: Colors.black,
+        fontSize: 20,
         fontWeight: FontWeight.bold,
       ),
       bodyLarge: TextStyle(color: Colors.black, fontSize: 18),

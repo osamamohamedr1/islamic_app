@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:islamic_app/core/routes/app_router.dart';
 import 'package:islamic_app/core/routes/routes.dart';
 import 'package:islamic_app/core/themes/app_themes.dart';
@@ -22,16 +23,26 @@ class IslamicApp extends StatelessWidget {
       create: (context) => ThemeCubit(),
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, themeState) {
-          return Directionality(
-            textDirection: TextDirection.rtl,
-            child: MaterialApp(
-              locale: Locale('ar', 'EG'),
-              themeMode: themeState,
-              darkTheme: AppThemes.darkTheme,
-              theme: AppThemes.lightTheme,
-              initialRoute: Routes.bottomNavBar,
-              onGenerateRoute: onGenerateRoute,
-            ),
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            supportedLocales: const [Locale('ar', 'EG'), Locale('en', 'US')],
+            localizationsDelegates: const [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+            ],
+            locale: Locale('ar', 'EG'),
+            themeMode: themeState,
+            darkTheme: AppThemes.darkTheme,
+            theme: AppThemes.lightTheme,
+            initialRoute: Routes.bottomNavBar,
+            onGenerateRoute: onGenerateRoute,
+            builder: (context, child) {
+              return Directionality(
+                textDirection: TextDirection.rtl,
+                child: child!,
+              );
+            },
           );
         },
       ),
