@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:islamic_app/core/themes/colors_manger.dart';
 import 'package:islamic_app/features/home/data/models/prayer_model.dart';
 
@@ -38,7 +39,7 @@ class PrayerTimeItem extends StatelessWidget {
             ),
           ),
           Text(
-            prayerModel.time,
+            DateFormat('hh:mm a', 'ar').format(prayerModel.time),
             style: Theme.of(context).textTheme.bodySmall!.copyWith(
               fontWeight: prayerModel.isComming
                   ? FontWeight.w700

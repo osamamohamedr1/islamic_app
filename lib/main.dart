@@ -5,12 +5,13 @@ import 'package:islamic_app/core/routes/app_router.dart';
 import 'package:islamic_app/core/routes/routes.dart';
 import 'package:islamic_app/core/themes/app_themes.dart';
 import 'package:islamic_app/core/utils/cache_helper.dart';
+import 'package:islamic_app/core/utils/dependency_injection.dart';
 import 'package:islamic_app/features/bottom_nav_bar.dart/presentation/manger/theme/theme_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.initSharedPrefCaching();
-
+  setupServiceLocator();
   runApp(IslamicApp());
 }
 

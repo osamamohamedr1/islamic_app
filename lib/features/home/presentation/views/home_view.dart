@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:islamic_app/core/utils/assets.dart';
+import 'package:islamic_app/features/home/data/repos/home_repo.dart';
+import 'package:islamic_app/features/home/presentation/manger/cubit/prayers_time_cubit.dart';
 import 'package:islamic_app/features/home/presentation/views/widgets/prayer_times_row.dart';
 import 'package:jhijri/_src/_jHijri.dart';
 
@@ -9,19 +12,25 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DateTime now = DateTime.now();
-    String formattedDate = DateFormat('d MMMM y', 'ar_EG').format(now);
-    return Scaffold(
-      appBar: homeAppBar(formattedDate, context),
-      body: Column(
-        spacing: 16,
-        children: [
-          PrayerTimesRow(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(children: [CommingPrayerFrame()]),
-          ),
-        ],
+    String formattedDate = DateFormat(
+      'd MMMM y',
+      'ar_EG',
+    ).format(DateTime.now());
+    return BlocProvider(
+      create: (context) => PrayersTimeCubit(HomeRepo())..getPrayerTimes(),
+
+      child: Scaffold(
+        appBar: homeAppBar(formattedDate, context),
+        body: Column(
+          spacing: 16,
+          children: [
+            PrayerTimesRow(),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(children: [CommingPrayerFrame()]),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -102,7 +111,7 @@ class CommingPrayerFrame extends StatelessWidget {
               ),
               Text('الفجر', style: Theme.of(context).textTheme.titleLarge),
               Text(
-                '10:55 ص',
+                '10:55',
                 textAlign: TextAlign.left,
                 style: Theme.of(
                   context,

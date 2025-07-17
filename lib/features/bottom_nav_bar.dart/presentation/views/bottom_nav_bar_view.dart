@@ -16,23 +16,30 @@ class BottomNavBarView extends StatefulWidget {
 
 class _BottomNavBarViewState extends State<BottomNavBarView> {
   int currentIndex = 0;
+  late PageController _pageController;
+  @override
+  void initState() {
+    _pageController = PageController(initialPage: currentIndex);
+    super.initState();
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      currentIndex = index;
+      _pageController.jumpToPage(index);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: currentIndex,
-        children: [HomeView(), QuranAudioView(), SettingsView()],
-      ),
+      body: PageView(controller: _pageController, children: getViews()),
       bottomNavigationBar: Directionality(
         textDirection: TextDirection.rtl,
         child: BottomNavigationBar(
           items: getItems(currentIndex),
           currentIndex: currentIndex,
-          onTap: (value) {
-            currentIndex = value;
-            setState(() {});
-          },
+          onTap: _onItemTapped,
         ),
       ),
     );
@@ -59,4 +66,10 @@ List<BottomNavigationBarItem> getItems(currentIndex) => [
     icon: Icon(FontAwesomeIcons.gear),
     label: 'الإعدادات',
   ),
+];
+
+List<Widget> getViews() => [
+  const HomeView(),
+  const QuranAudioView(),
+  const SettingsView(),
 ];

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:islamic_app/core/themes/colors_manger.dart';
-import 'package:islamic_app/core/utils/assets.dart';
-import 'package:islamic_app/features/home/data/models/prayer_model.dart';
+import 'package:islamic_app/features/home/presentation/manger/cubit/prayers_time_cubit.dart';
 import 'package:islamic_app/features/home/presentation/views/widgets/prayer_time_item.dart';
 
 class PrayerTimesRow extends StatelessWidget {
@@ -11,55 +11,33 @@ class PrayerTimesRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height * 0.12,
-      decoration: BoxDecoration(
-        color: ColorsManger.lightGrey,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          PrayerTimeItem(
-            prayerModel: PrayerModel(
-              name: 'الفجر',
-              time: '04:30',
-              iconPath: Assets.svgsFajr,
-              isComming: true,
-            ),
-          ),
-          PrayerTimeItem(
-            prayerModel: PrayerModel(
-              name: 'الظهر',
-              time: '12:00',
-              iconPath: Assets.svgsZhr,
-              isComming: false,
-            ),
-          ),
-          PrayerTimeItem(
-            prayerModel: PrayerModel(
-              name: 'العصر',
-              time: '15:30',
-              iconPath: Assets.svgsAsr,
-              isComming: false,
-            ),
-          ),
-          PrayerTimeItem(
-            prayerModel: PrayerModel(
-              name: 'المغرب',
-              time: '18:00',
-              iconPath: Assets.svgsMghreb,
-              isComming: false,
-            ),
-          ),
-          PrayerTimeItem(
-            prayerModel: PrayerModel(
-              name: 'العشاء',
-              time: '19:30',
-              iconPath: Assets.svgsEsha,
-              isComming: false,
-            ),
-          ),
-        ],
+      decoration: BoxDecoration(color: ColorsManger.lightGrey),
+      child: BlocBuilder<PrayersTimeCubit, PrayersTimeState>(
+        builder: (context, state) {
+          if (state is PrayersTimeLoaded) {
+            return Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: List.generate(state.prayerTimes.length, (index) {
+                final prayer = state.prayerTimes[index];
+                return PrayerTimeItem(prayerModel: prayer);
+              }),
+            );
+          } else if (state is PrayersTimeError) {
+            return Center(
+              child: Text(
+                state.message,
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyMedium!.copyWith(color: Colors.red),
+              ),
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(color: ColorsManger.primary),
+            );
+          }
+        },
       ),
     );
   }

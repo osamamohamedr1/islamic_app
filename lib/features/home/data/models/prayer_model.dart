@@ -1,7 +1,7 @@
 class PrayerModel {
   final String name;
-  final String time;
-  final bool isComming;
+  final DateTime time;
+  bool isComming;
   final String iconPath;
 
   PrayerModel({
