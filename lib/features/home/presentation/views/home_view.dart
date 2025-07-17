@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:islamic_app/features/home/data/repos/prayers_time_repo.dart';
 import 'package:islamic_app/features/home/presentation/manger/prayer_time_cubit/prayers_time_cubit.dart';
@@ -37,6 +38,7 @@ class HomeView extends StatelessWidget {
                     CommingPrayerFrame(),
                     AllCustomContainer(),
                     AzkarCategorySection(),
+                    SizedBox(height: 20.h),
                   ],
                 ),
               ),
@@ -55,14 +57,14 @@ class HomeView extends StatelessWidget {
         Text(
           formattedDate,
           style: Theme.of(context).textTheme.bodySmall!.copyWith(
-            fontSize: 16,
+            fontSize: 15.sp,
             fontWeight: FontWeight.w500,
           ),
         ),
         Text(
           HijriDate.now().toString(),
           style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-            fontSize: 16,
+            fontSize: 14.sp,
             fontWeight: FontWeight.w500,
           ),
         ),

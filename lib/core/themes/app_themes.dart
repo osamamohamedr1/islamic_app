@@ -48,13 +48,12 @@ class AppThemes {
       secondary: ColorsManger.primary,
     ),
     appBarTheme: AppBarTheme(
-      backgroundColor: ColorsManger.darkBLue,
       titleTextStyle: TextStyle(color: Colors.white, fontSize: 20),
     ),
     textTheme: TextTheme(
       titleLarge: TextStyle(
-        color: Colors.white,
-        fontSize: 30,
+        color: ColorsManger.darkBLue,
+        fontSize: 30.sp,
         fontWeight: FontWeight.bold,
       ),
       titleMedium: TextStyle(
@@ -62,9 +61,9 @@ class AppThemes {
         fontSize: 24,
         fontWeight: FontWeight.bold,
       ),
-      bodyLarge: TextStyle(color: Colors.white70, fontSize: 18),
-      bodyMedium: TextStyle(color: Colors.white70, fontSize: 16),
-      bodySmall: TextStyle(color: Colors.grey, fontSize: 14),
+      bodyLarge: TextStyle(color: Colors.white, fontSize: 18.sp),
+      bodyMedium: TextStyle(color: Colors.white, fontSize: 16.sp),
+      bodySmall: TextStyle(color: Colors.white, fontSize: 14.sp),
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       elevation: 5,

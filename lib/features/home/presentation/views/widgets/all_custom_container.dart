@@ -18,7 +18,7 @@ class AllCustomContainer extends StatelessWidget {
           'عبادات مختلفة',
           style: Theme.of(
             context,
-          ).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),
+          ).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w700),
         ),
       ),
     );

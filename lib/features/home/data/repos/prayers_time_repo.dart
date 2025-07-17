@@ -7,7 +7,7 @@ import 'package:islamic_app/features/home/data/models/prayer_model.dart';
 class PrayersTimeRepo {
   Either<Failure, List<PrayerModel>> getPrayerTimes() {
     try {
-      Coordinates coordinates = Coordinates(30.0444, 31.2357);
+      Coordinates coordinates = Coordinates(30.033333, 31.233334);
       final params = CalculationMethod.karachi.getParameters();
       params.madhab = Madhab.hanafi;
       final prayerTimes = PrayerTimes.today(coordinates, params);

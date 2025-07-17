@@ -16,7 +16,8 @@ class AzkarItem extends StatelessWidget {
   final void Function()? onTap;
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    return GestureDetector(
       onTap: onTap,
       child: Container(
         width: 90.w,
@@ -24,13 +25,15 @@ class AzkarItem extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         margin: EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: isDarkMode ? ColorsManger.darkCard : Colors.white,
           borderRadius: BorderRadius.circular(8),
           boxShadow: [
             BoxShadow(
-              color: ColorsManger.lightGrey,
+              color: isDarkMode
+                  ? ColorsManger.darkCard
+                  : ColorsManger.lightGrey,
               offset: const Offset(0, 2.5),
-              spreadRadius: 4,
+              spreadRadius: 5,
               blurRadius: 10,
             ),
           ],

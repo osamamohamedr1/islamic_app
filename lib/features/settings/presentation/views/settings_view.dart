@@ -13,7 +13,7 @@ class SettingsView extends StatelessWidget {
         children: [
           Center(
             child: Switch(
-              value: context.read<ThemeCubit>().state == ThemeMode.light,
+              value: context.watch<ThemeCubit>().state == ThemeMode.light,
               onChanged: (value) {
                 context.read<ThemeCubit>().toggleTheme();
               },

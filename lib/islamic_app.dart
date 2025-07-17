@@ -13,7 +13,7 @@ class IslamicApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ThemeCubit(),
+      create: (context) => ThemeCubit()..loadTheme(),
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, themeState) {
           return ScreenUtilInit(
