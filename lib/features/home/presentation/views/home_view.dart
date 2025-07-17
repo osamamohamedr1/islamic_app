@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:islamic_app/core/utils/assets.dart';
 import 'package:islamic_app/features/home/presentation/views/widgets/prayer_times_row.dart';
 import 'package:jhijri/_src/_jHijri.dart';
 
@@ -12,7 +13,16 @@ class HomeView extends StatelessWidget {
     String formattedDate = DateFormat('d MMMM y', 'ar_EG').format(now);
     return Scaffold(
       appBar: homeAppBar(formattedDate, context),
-      body: Column(children: [PrayerTimesRow()]),
+      body: Column(
+        spacing: 16,
+        children: [
+          PrayerTimesRow(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(children: [CommingPrayerFrame()]),
+          ),
+        ],
+      ),
     );
   }
 
@@ -62,4 +72,46 @@ class HomeView extends StatelessWidget {
       ),
     ],
   );
+}
+
+class CommingPrayerFrame extends StatelessWidget {
+  const CommingPrayerFrame({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Image.asset(
+          Assets.imagesCommingPrayerFrame,
+          width: MediaQuery.of(context).size.width,
+          fit: BoxFit.fill,
+        ),
+
+        Positioned(
+          left: 16,
+          top: 40,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'الصلاة القادمة',
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge!.copyWith(fontSize: 18),
+              ),
+              Text('الفجر', style: Theme.of(context).textTheme.titleLarge),
+              Text(
+                '10:55 ص',
+                textAlign: TextAlign.left,
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge!.copyWith(fontSize: 18),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
 }

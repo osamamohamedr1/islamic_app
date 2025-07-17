@@ -2,6 +2,10 @@
 class Assets {
   Assets._();
   
+  /// Assets for imagesCommingPrayerFrame
+  /// assets/images/comming_prayer_frame.png
+  static const String imagesCommingPrayerFrame = "assets/images/comming_prayer_frame.png";
+
   /// Assets for jsonAllahNamesAr
   /// assets/json/allah_names_ar.json
   static const String jsonAllahNamesAr = "assets/json/allah_names_ar.json";
