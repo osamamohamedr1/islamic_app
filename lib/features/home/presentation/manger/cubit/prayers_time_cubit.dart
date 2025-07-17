@@ -8,7 +8,7 @@ part 'prayers_time_state.dart';
 class PrayersTimeCubit extends Cubit<PrayersTimeState> {
   PrayersTimeCubit(this.homeRepo) : super(PrayersTimeInitial());
 
-  final HomeRepo homeRepo;
+  final PrayersTimeRepo homeRepo;
   void getPrayerTimes() {
     try {
       emit(PrayersTimeLoading());

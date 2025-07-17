@@ -1,15 +1,13 @@
-import 'dart:developer';
 import 'package:adhan/adhan.dart';
 import 'package:islamic_app/core/utils/assets.dart';
 import 'package:islamic_app/features/home/data/models/prayer_model.dart';
 
-class HomeRepo {
+class PrayersTimeRepo {
   List<PrayerModel> getPrayerTimes() {
     Coordinates coordinates = Coordinates(30.0444, 31.2357);
     final params = CalculationMethod.karachi.getParameters();
     params.madhab = Madhab.hanafi;
     final prayerTimes = PrayerTimes.today(coordinates, params);
-    log(prayerTimes.maghrib.toString());
     final List<PrayerModel> prayerModelsList = [
       PrayerModel(
         name: 'الفجر',
@@ -50,5 +48,21 @@ class HomeRepo {
     }
 
     return prayerModelsList;
+  }
+
+  PrayerModel getNextPrayer() {
+    List<PrayerModel> prayerTimes = getPrayerTimes();
+    DateTime now = DateTime.now();
+    for (var prayer in prayerTimes) {
+      if (prayer.time.isAfter(now)) {
+        return prayer;
+      }
+    }
+    return PrayerModel(
+      name: 'لا توجد صلوات قادمة',
+      time: now,
+      iconPath: Assets.svgsEsha,
+      isComming: false,
+    );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:islamic_app/core/themes/colors_manger.dart';
 
 class AppThemes {
@@ -14,17 +15,17 @@ class AppThemes {
     textTheme: TextTheme(
       titleLarge: TextStyle(
         color: ColorsManger.darkBLue,
-        fontSize: 30,
+        fontSize: 30.sp,
         fontWeight: FontWeight.bold,
       ),
       titleMedium: TextStyle(
         color: ColorsManger.darkBLue,
-        fontSize: 24,
+        fontSize: 24.sp,
         fontWeight: FontWeight.bold,
       ),
       titleSmall: TextStyle(
         color: Colors.black,
-        fontSize: 20,
+        fontSize: 20.sp,
         fontWeight: FontWeight.bold,
       ),
       bodyLarge: TextStyle(color: Colors.black, fontSize: 18),
@@ -32,8 +33,7 @@ class AppThemes {
       bodySmall: TextStyle(color: ColorsManger.grey, fontSize: 14),
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      elevation: 5,
-
+      elevation: 1,
       selectedIconTheme: IconThemeData(size: 28),
       selectedItemColor: ColorsManger.primary,
       unselectedItemColor: Colors.grey,

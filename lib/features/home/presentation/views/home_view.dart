@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
-import 'package:islamic_app/core/utils/assets.dart';
 import 'package:islamic_app/features/home/data/repos/home_repo.dart';
 import 'package:islamic_app/features/home/presentation/manger/cubit/prayers_time_cubit.dart';
+import 'package:islamic_app/features/home/presentation/views/widgets/comming_prayer_time.dart';
 import 'package:islamic_app/features/home/presentation/views/widgets/prayer_times_row.dart';
 import 'package:jhijri/_src/_jHijri.dart';
 
@@ -17,7 +17,8 @@ class HomeView extends StatelessWidget {
       'ar_EG',
     ).format(DateTime.now());
     return BlocProvider(
-      create: (context) => PrayersTimeCubit(HomeRepo())..getPrayerTimes(),
+      create: (context) =>
+          PrayersTimeCubit(PrayersTimeRepo())..getPrayerTimes(),
 
       child: Scaffold(
         appBar: homeAppBar(formattedDate, context),
@@ -81,46 +82,4 @@ class HomeView extends StatelessWidget {
       ),
     ],
   );
-}
-
-class CommingPrayerFrame extends StatelessWidget {
-  const CommingPrayerFrame({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Image.asset(
-          Assets.imagesCommingPrayerFrame,
-          width: MediaQuery.of(context).size.width,
-          fit: BoxFit.fill,
-        ),
-
-        Positioned(
-          left: 16,
-          top: 40,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                'الصلاة القادمة',
-                style: Theme.of(
-                  context,
-                ).textTheme.titleLarge!.copyWith(fontSize: 18),
-              ),
-              Text('الفجر', style: Theme.of(context).textTheme.titleLarge),
-              Text(
-                '10:55',
-                textAlign: TextAlign.left,
-                style: Theme.of(
-                  context,
-                ).textTheme.titleLarge!.copyWith(fontSize: 18),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
 }

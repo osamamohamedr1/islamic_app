@@ -33,9 +33,17 @@ class _BottomNavBarViewState extends State<BottomNavBarView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView(controller: _pageController, children: getViews()),
-      bottomNavigationBar: Directionality(
-        textDirection: TextDirection.rtl,
+      body: PageView(
+        physics: const NeverScrollableScrollPhysics(),
+        controller: _pageController,
+        children: getViews(),
+      ),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          border: Border(
+            top: BorderSide(color: ColorsManger.primary, width: .4),
+          ),
+        ),
         child: BottomNavigationBar(
           items: getItems(currentIndex),
           currentIndex: currentIndex,
