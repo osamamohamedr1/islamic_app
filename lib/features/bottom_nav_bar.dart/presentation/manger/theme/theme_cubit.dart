@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:islamic_app/core/utils/cache_helper.dart';
-import 'package:meta/meta.dart';
 part 'theme_state.dart';
 
 class ThemeCubit extends Cubit<ThemeMode> {

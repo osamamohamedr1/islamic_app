@@ -43,14 +43,15 @@ class PrayersTimeRepo {
           isComming: false,
         ),
       ];
+      bool foundNext = false;
       for (var prayer in prayerModelsList) {
-        if (prayer.time.isAfter(DateTime.now())) {
+        if (!foundNext && prayer.time.isAfter(DateTime.now())) {
           prayer.isComming = true;
-
-          break;
-        } else {
-          prayerModelsList.first.isComming = true;
+          foundNext = true;
         }
+      }
+      if (!foundNext) {
+        prayerModelsList.first.isComming = true;
       }
 
       return right(prayerModelsList);
