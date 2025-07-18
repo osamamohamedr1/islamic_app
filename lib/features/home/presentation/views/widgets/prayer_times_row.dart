@@ -10,7 +10,7 @@ class PrayerTimesRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TweenAnimationBuilder(
-      duration: const Duration(seconds: 1),
+      duration: const Duration(milliseconds: 300),
       tween: Tween<Offset>(begin: const Offset(0, -100), end: Offset.zero),
       builder: (context, value, child) {
         return Transform.translate(offset: value, child: child);

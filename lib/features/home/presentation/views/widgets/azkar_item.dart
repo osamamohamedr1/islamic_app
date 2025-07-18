@@ -23,7 +23,7 @@ class AzkarItem extends StatelessWidget {
       builder: (context, value, child) {
         return Transform.scale(scale: value, child: child);
       },
-      duration: const Duration(seconds: 1),
+      duration: const Duration(milliseconds: 300),
       child: GestureDetector(
         onTap: onTap,
         child: Container(
