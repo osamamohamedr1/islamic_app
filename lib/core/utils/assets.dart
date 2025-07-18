@@ -26,6 +26,10 @@ class Assets {
   /// assets/json/surahs_data.json
   static const String jsonSurahsData = "assets/json/surahs_data.json";
 
+  /// Assets for svgsAboveFrame
+  /// assets/svgs/above_frame.svg
+  static const String svgsAboveFrame = "assets/svgs/above_frame.svg";
+
   /// Assets for svgsAsr
   /// assets/svgs/asr.svg
   static const String svgsAsr = "assets/svgs/asr.svg";
@@ -37,6 +41,10 @@ class Assets {
   /// Assets for svgsDoua
   /// assets/svgs/doua.svg
   static const String svgsDoua = "assets/svgs/doua.svg";
+
+  /// Assets for svgsDownFrame
+  /// assets/svgs/down_frame.svg
+  static const String svgsDownFrame = "assets/svgs/down_frame.svg";
 
   /// Assets for svgsEsha
   /// assets/svgs/esha.svg

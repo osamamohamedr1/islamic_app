@@ -3,6 +3,6 @@ class Routes {
   static const String quran = '/quran';
   static const String bottomNavBar = '/bottomNavBar';
   static const String hadith = '/hadith';
-  static const String dua = '/dua';
+  static const String allDua = '/allDua';
   static const String settings = '/settings';
 }

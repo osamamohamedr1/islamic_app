@@ -4,6 +4,7 @@ import 'package:islamic_app/core/themes/colors_manger.dart';
 
 class AppThemes {
   static ThemeData lightTheme = ThemeData(
+    iconTheme: IconThemeData(color: ColorsManger.primary),
     scaffoldBackgroundColor: ColorsManger.offWhite,
     brightness: Brightness.light,
     primaryColor: ColorsManger.primary,
@@ -41,6 +42,7 @@ class AppThemes {
     ),
   );
   static ThemeData darkTheme = ThemeData(
+    iconTheme: IconThemeData(color: ColorsManger.primary),
     brightness: Brightness.dark,
     primaryColor: ColorsManger.darkBLue,
     colorScheme: ColorScheme.dark(
