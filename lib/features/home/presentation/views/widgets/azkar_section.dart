@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:islamic_app/core/routes/routes.dart';
 import 'package:islamic_app/core/utils/assets.dart';
 import 'package:islamic_app/core/utils/extensions.dart';
+import 'package:islamic_app/features/dua/presentation/manger/cubit/all_dua_cubit_cubit.dart';
 import 'package:islamic_app/features/home/presentation/views/widgets/azkar_item.dart';
 
 class AzkarCategorySection extends StatelessWidget {
@@ -45,6 +47,7 @@ class AzkarCategorySection extends StatelessWidget {
                   iconPath: Assets.svgsDoua,
                   onTap: () {
                     context.pushNamed(Routes.allDua);
+                    context.read<AllDuaCubitCubit>().getSpecificSection(1);
                   },
                 ),
               ),

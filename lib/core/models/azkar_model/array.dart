@@ -1,11 +1,29 @@
-class Array {
-  int? id;
-  String? text;
-  int? count;
-  String? audio;
-  String? filename;
+import 'package:hive/hive.dart';
+part 'array.g.dart';
 
-  Array({this.id, this.text, this.count, this.audio, this.filename});
+@HiveType(typeId: 1)
+class Array {
+  @HiveField(0)
+  int? id;
+  @HiveField(1)
+  String? text;
+  @HiveField(2)
+  int? count;
+  @HiveField(3)
+  String? audio;
+  @HiveField(4)
+  String? filename;
+  @HiveField(5)
+  bool isFavorite;
+
+  Array({
+    this.id,
+    this.text,
+    this.count,
+    this.audio,
+    this.filename,
+    this.isFavorite = false,
+  });
 
   factory Array.fromJson(Map<String, dynamic> json) => Array(
     id: json['id'] as int?,
@@ -13,6 +31,7 @@ class Array {
     count: json['count'] as int?,
     audio: json['audio'] as String?,
     filename: json['filename'] as String?,
+    isFavorite: false,
   );
 
   Map<String, dynamic> toJson() => {

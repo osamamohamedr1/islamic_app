@@ -6,6 +6,10 @@ class Assets {
   /// assets/images/comming_prayer_frame.png
   static const String imagesCommingPrayerFrame = "assets/images/comming_prayer_frame.png";
 
+  /// Assets for jsonAllDua
+  /// assets/json/all_dua.json
+  static const String jsonAllDua = "assets/json/all_dua.json";
+
   /// Assets for jsonAllahNamesAr
   /// assets/json/allah_names_ar.json
   static const String jsonAllahNamesAr = "assets/json/allah_names_ar.json";

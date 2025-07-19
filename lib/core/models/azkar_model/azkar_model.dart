@@ -1,10 +1,19 @@
-import 'array.dart';
+import 'package:hive/hive.dart';
 
+import 'array.dart';
+part 'azkar_model.g.dart';
+
+@HiveType(typeId: 0)
 class AzkarModel {
+  @HiveField(0)
   int? id;
+  @HiveField(1)
   String? category;
+  @HiveField(2)
   String? audio;
+  @HiveField(3)
   String? filename;
+  @HiveField(4)
   List<Array>? array;
 
   AzkarModel({this.id, this.category, this.audio, this.filename, this.array});
