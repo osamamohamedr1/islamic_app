@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:islamic_app/core/models/azkar_model/array.dart';
 import 'package:islamic_app/core/themes/colors_manger.dart';
-import 'package:islamic_app/features/dua/presentation/views/widgets/favorite_animated_button.dart';
+import 'package:islamic_app/core/widgets/favorite_animated_button.dart';
 import 'package:share_plus/share_plus.dart';
 
 class AzkarActionsWidget extends StatelessWidget {
-  const AzkarActionsWidget({super.key, required this.azkarArray});
+  const AzkarActionsWidget({
+    super.key,
+    required this.azkarArray,
+    required this.onToggleFavorite,
+  });
   final Array azkarArray;
+  final void Function() onToggleFavorite;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -37,6 +42,7 @@ class AzkarActionsWidget extends StatelessWidget {
           height: 60,
           width: 60,
           child: FavoriteAnimatedButton(
+            onToggleFavorite: onToggleFavorite,
             isFavorite: azkarArray.isFavorite,
             index: (azkarArray.id! - 1),
           ),

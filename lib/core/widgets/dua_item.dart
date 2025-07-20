@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:islamic_app/core/models/azkar_model/array.dart';
 import 'package:islamic_app/core/themes/colors_manger.dart';
-import 'package:islamic_app/features/dua/presentation/views/widgets/azkar_actions.dart';
-import 'package:islamic_app/features/dua/presentation/views/widgets/azkar_text_widget.dart';
+import 'package:islamic_app/features/azkar/presentation/views/widgets/azkar_actions.dart';
+import 'package:islamic_app/features/azkar/presentation/views/widgets/azkar_text_widget.dart';
 
 class DuaItem extends StatelessWidget {
   final Array azkarArray;
-  const DuaItem({super.key, required this.azkarArray});
+  final void Function() onToggleFavorite;
+  const DuaItem({
+    super.key,
+    required this.azkarArray,
+    required this.onToggleFavorite,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +33,10 @@ class DuaItem extends StatelessWidget {
         spacing: 4,
         children: [
           AzkarTextWidget(azkarText: azkarArray.text ?? ''),
-          AzkarActionsWidget(azkarArray: azkarArray),
+          AzkarActionsWidget(
+            azkarArray: azkarArray,
+            onToggleFavorite: onToggleFavorite,
+          ),
         ],
       ),
     );

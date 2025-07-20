@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:islamic_app/core/routes/routes.dart';
 import 'package:islamic_app/core/utils/assets.dart';
 import 'package:islamic_app/core/utils/extensions.dart';
-import 'package:islamic_app/features/dua/presentation/manger/cubit/all_dua_cubit_cubit.dart';
+import 'package:islamic_app/features/azkar/presentation/manger/cubit/azkar_cubit_cubit.dart';
 import 'package:islamic_app/features/home/presentation/views/widgets/azkar_item.dart';
 
 class AzkarCategorySection extends StatelessWidget {
@@ -18,23 +18,23 @@ class AzkarCategorySection extends StatelessWidget {
             children: [
               Expanded(
                 child: AzkarItem(
-                  title: 'أذكار المساء',
-                  iconPath: Assets.svgsNightAzkar,
-                  onTap: () {},
+                  title: 'جوامع الدعاء',
+                  iconPath: Assets.svgsDoua,
+                  onTap: () {
+                    context.pushNamed(Routes.allDua);
+                    context.read<AzkarCubit>().getAllDua();
+                  },
                 ),
               ),
+
               Expanded(
                 child: AzkarItem(
-                  title: 'أذكار الصباح',
+                  title: 'أذكار الصباح والمساء',
                   iconPath: Assets.svgsMorningAzkar,
-                  onTap: () {},
-                ),
-              ),
-              Expanded(
-                child: AzkarItem(
-                  title: 'أذكار الصلاة',
-                  iconPath: Assets.svgsPrayerAzkar,
-                  onTap: () {},
+                  onTap: () {
+                    context.pushNamed(Routes.morningAndNightAzkar);
+                    context.read<AzkarCubit>().getMorningAndNightAzkar();
+                  },
                 ),
               ),
             ],
@@ -43,21 +43,22 @@ class AzkarCategorySection extends StatelessWidget {
             children: [
               Expanded(
                 child: AzkarItem(
-                  title: 'جوامع الدعاء',
-                  iconPath: Assets.svgsDoua,
+                  title: 'أذكار النوم',
+                  iconPath: Assets.svgsNightAzkar,
                   onTap: () {
-                    context.pushNamed(Routes.allDua);
-                    context.read<AllDuaCubitCubit>().getSpecificSection(1);
+                    context.pushNamed(Routes.sleepAzkar);
+                    context.read<AzkarCubit>().getSleepAzkar();
                   },
                 ),
               ),
               Expanded(
                 child: AzkarItem(
-                  title: 'التسبيح',
-                  iconPath: Assets.svgsTasbeh,
+                  title: 'أذكار متنوعة',
+                  iconPath: Assets.svgsDifferentAzkar,
                   onTap: () {},
                 ),
               ),
+
               Expanded(
                 child: AzkarItem(
                   title: 'المفضلة',
@@ -79,8 +80,8 @@ class AzkarCategorySection extends StatelessWidget {
               ),
               Expanded(
                 child: AzkarItem(
-                  title: 'أذكار متنوعة',
-                  iconPath: Assets.svgsPrayerAzkar,
+                  title: 'التسبيح',
+                  iconPath: Assets.svgsTasbeh,
                   onTap: () {},
                 ),
               ),

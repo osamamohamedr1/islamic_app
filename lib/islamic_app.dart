@@ -5,10 +5,10 @@ import 'package:islamic_app/core/routes/app_router.dart';
 import 'package:islamic_app/core/routes/routes.dart';
 import 'package:islamic_app/core/themes/app_themes.dart';
 import 'package:islamic_app/core/utils/dependency_injection.dart';
+import 'package:islamic_app/features/azkar/data/repos/azkar_repo.dart';
+import 'package:islamic_app/features/azkar/presentation/manger/cubit/azkar_cubit_cubit.dart';
 import 'package:islamic_app/features/bottom_nav_bar.dart/presentation/manger/theme/theme_cubit.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:islamic_app/features/dua/data/repos/dua_repo.dart';
-import 'package:islamic_app/features/dua/presentation/manger/cubit/all_dua_cubit_cubit.dart';
 
 class IslamicApp extends StatelessWidget {
   const IslamicApp({super.key});
@@ -18,9 +18,8 @@ class IslamicApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => ThemeCubit()..loadTheme()),
-        BlocProvider(
-          create: (context) => AllDuaCubitCubit(getIt.get<AllDuaRepo>()),
-        ),
+
+        BlocProvider(create: (context) => AzkarCubit(getIt.get<AzkarRepo>())),
       ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, themeState) {

@@ -14,10 +14,6 @@ class Assets {
   /// assets/images/loading_animation.gif
   static const String imagesLoadingAnimation = "assets/images/loading_animation.gif";
 
-  /// Assets for jsonAllDua
-  /// assets/json/all_dua.json
-  static const String jsonAllDua = "assets/json/all_dua.json";
-
   /// Assets for jsonAllahNamesAr
   /// assets/json/allah_names_ar.json
   static const String jsonAllahNamesAr = "assets/json/allah_names_ar.json";

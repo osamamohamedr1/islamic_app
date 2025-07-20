@@ -19,7 +19,8 @@ class HelpFun {
       for (var zkr in jsonAzkar) {
         if (zkr['id'] == sectionId) {
           var item = AzkarModel.fromJson(zkr);
-          Hive.box<AzkarModel>(allDuaBox).put(item.id, item);
+
+          await Hive.box<AzkarModel>(azkarBox).put(sectionId, item);
         }
       }
     } catch (e) {

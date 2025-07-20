@@ -17,7 +17,7 @@ void main() async {
 
   Hive.registerAdapter(AzkarModelAdapter());
   Hive.registerAdapter(ArrayAdapter());
-  await Hive.openBox<AzkarModel>(allDuaBox);
+  await Hive.openBox<AzkarModel>(azkarBox);
 
   setupServiceLocator();
   runApp(IslamicApp());

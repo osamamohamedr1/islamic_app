@@ -24,11 +24,9 @@ class AzkarItem extends StatelessWidget {
         return Transform.scale(scale: value, child: child);
       },
       duration: const Duration(milliseconds: 300),
-      child: GestureDetector(
+      child: InkWell(
         onTap: onTap,
         child: Container(
-          width: 90.w,
-          height: 90.h,
           padding: const EdgeInsets.all(12),
           margin: EdgeInsets.all(8),
           decoration: BoxDecoration(
@@ -46,12 +44,16 @@ class AzkarItem extends StatelessWidget {
             ],
           ),
           child: Column(
+            spacing: 5,
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SvgPicture.asset(iconPath),
+              SvgPicture.asset(fit: BoxFit.contain, height: 45, iconPath),
               Text(
                 title,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                maxLines: 2,
                 style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w600,

@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:islamic_app/core/themes/colors_manger.dart';
-import 'package:islamic_app/features/dua/presentation/manger/cubit/all_dua_cubit_cubit.dart';
 
 class FavoriteAnimatedButton extends StatefulWidget {
   const FavoriteAnimatedButton({
     super.key,
     required this.isFavorite,
     required this.index,
+    required this.onToggleFavorite,
   });
   final bool isFavorite;
   final int index;
+  final void Function() onToggleFavorite;
   @override
   State<FavoriteAnimatedButton> createState() => _FavoriteAnimatedButtonState();
 }
@@ -59,7 +59,7 @@ class _FavoriteAnimatedButtonState extends State<FavoriteAnimatedButton>
           color: _colorAnimation.value,
           iconSize: _sizeAnimation.value,
           onPressed: () {
-            context.read<AllDuaCubitCubit>().toggleFavorite(widget.index);
+            widget.onToggleFavorite();
 
             if (isFavorite) {
               _animationController.reverse();

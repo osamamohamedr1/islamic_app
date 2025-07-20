@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:islamic_app/core/utils/assets.dart';
-import 'package:islamic_app/features/dua/presentation/manger/cubit/all_dua_cubit_cubit.dart';
-import 'package:islamic_app/features/dua/presentation/views/widgets/dua_item.dart';
+import 'package:islamic_app/features/azkar/presentation/manger/cubit/azkar_cubit_cubit.dart';
+import 'package:islamic_app/core/widgets/dua_item.dart';
 
-class AllDuaView extends StatelessWidget {
-  const AllDuaView({super.key});
+class MorningAndNightAzkarView extends StatelessWidget {
+  const MorningAndNightAzkarView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AllDuaCubitCubit, AllDuaCubitState>(
+    return BlocBuilder<AzkarCubit, AzkarCubitState>(
       builder: (context, state) {
-        if (state is AllDuaCubitLoaded) {
+        if (state is MorningAndNightAzkarLoaded) {
           return Scaffold(
             appBar: AppBar(
               scrolledUnderElevation: 0,
@@ -37,7 +37,15 @@ class AllDuaView extends StatelessWidget {
                           ? 24
                           : 16,
                     ),
-                    child: DuaItem(azkarArray: state.azkarModel.array![index]),
+                    child: DuaItem(
+                      azkarArray: state.azkarModel.array![index],
+                      onToggleFavorite: () {
+                        context.read<AzkarCubit>().toggleFav(
+                          index: index,
+                          azkarId: 2,
+                        );
+                      },
+                    ),
                   );
                 },
               ),
