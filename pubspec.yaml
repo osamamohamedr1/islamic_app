@@ -29,13 +29,14 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   adhan: ^2.0.0+1
-  build_runner:  ^2.4.15
+  build_runner: ^2.4.15
   cupertino_icons: ^1.0.8
   dartz: ^0.10.1
   dio: ^5.8.0+1
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1
+  flutter_launcher_icons: ^0.14.4
   flutter_localization: ^0.3.3
   flutter_screenutil: ^5.9.3
   flutter_svg: ^2.2.0
@@ -100,3 +101,18 @@ flutter_assets:
   output_path: lib/core/utils
   filename: assets.dart
   field_prefix: null
+
+
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  web: true
+  windows: true
+  macos: true
+
+  image_path: "assets/images/app_icon.png"
+
+  # adaptive_icon_background: "#ffffff"
+  # adaptive_icon_foreground: "assets/icon/adaptive_foreground.png"
+ 
