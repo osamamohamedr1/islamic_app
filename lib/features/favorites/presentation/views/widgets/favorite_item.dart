@@ -10,12 +10,17 @@ class FavortieItem extends StatelessWidget {
   final AzkarArray azkarArray;
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage(Assets.imagesDecorationBackgound),
-          fit: BoxFit.fitWidth,
+          image: AssetImage(
+            isDarkMode
+                ? Assets.imagesDarkDecorationBackground
+                : Assets.imagesDecorationBackgound,
+          ),
+          fit: BoxFit.fill,
           alignment: Alignment.topCenter,
         ),
         border: Border.all(color: ColorsManger.grey, width: .1),
@@ -26,11 +31,13 @@ class FavortieItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          SizedBox(height: 30),
           Text(
             text,
+            textAlign: TextAlign.center,
             style: Theme.of(
               context,
-            ).textTheme.bodyMedium?.copyWith(color: Colors.black),
+            ).textTheme.bodyMedium?.copyWith(fontSize: 20),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -38,6 +45,7 @@ class FavortieItem extends StatelessWidget {
             children: [
               IconButton(
                 iconSize: 30,
+                color: isDarkMode ? Colors.white : ColorsManger.primary,
                 onPressed: () {
                   SharePlus.instance.share(
                     ShareParams(text: azkarArray.text ?? ''),
@@ -46,16 +54,19 @@ class FavortieItem extends StatelessWidget {
                 icon: Icon(Icons.share),
               ),
               Container(
-                padding: EdgeInsets.all(8),
+                padding: EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(color: ColorsManger.darkBLue, width: 1.5),
+                  border: Border.all(
+                    color: isDarkMode ? Colors.white : ColorsManger.primary,
+                    width: 1.5,
+                  ),
                 ),
                 child: Center(
                   child: Text(
                     '${azkarArray.count ?? 0}',
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      color: ColorsManger.darkBLue,
+                      color: isDarkMode ? Colors.white : ColorsManger.primary,
                     ),
                   ),
                 ),

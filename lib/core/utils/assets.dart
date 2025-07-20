@@ -10,6 +10,10 @@ class Assets {
   /// assets/images/comming_prayer_frame.png
   static const String imagesCommingPrayerFrame = "assets/images/comming_prayer_frame.png";
 
+  /// Assets for imagesDarkDecorationBackground
+  /// assets/images/dark_decoration_background.png
+  static const String imagesDarkDecorationBackground = "assets/images/dark_decoration_background.png";
+
   /// Assets for imagesDecorationBackgound
   /// assets/images/decoration_backgound.png
   static const String imagesDecorationBackgound = "assets/images/decoration_backgound.png";
