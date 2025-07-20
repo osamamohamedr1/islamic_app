@@ -8,10 +8,12 @@ class AzkarTextWidget extends StatelessWidget {
   final String azkarText;
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
-        color: ColorsManger.lighterGrey,
+        color: isDarkMode ? ColorsManger.darkCard : ColorsManger.lighterGrey,
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(

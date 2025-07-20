@@ -15,19 +15,23 @@ class DuaItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Container(
       padding: EdgeInsets.only(bottom: 4),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: ColorsManger.lighterGrey,
+            color: isDarkMode
+                ? ColorsManger.darkCard
+                : ColorsManger.lighterGrey,
             offset: Offset(0, 4),
             blurRadius: 2,
             spreadRadius: 0,
           ),
         ],
-        border: Border.all(color: ColorsManger.lighterGrey, width: .4),
+        border: Border.all(color: ColorsManger.grey, width: .2),
       ),
       child: Column(
         spacing: 4,

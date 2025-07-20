@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:islamic_app/core/utils/assets.dart';
 import 'package:islamic_app/features/azkar/presentation/manger/cubit/azkar_cubit_cubit.dart';
-import 'package:islamic_app/core/widgets/dua_item.dart';
+import 'package:islamic_app/features/azkar/presentation/views/widgets/dua_item.dart';
 
 class MorningAndNightAzkarView extends StatelessWidget {
   const MorningAndNightAzkarView({super.key});
@@ -37,14 +37,17 @@ class MorningAndNightAzkarView extends StatelessWidget {
                           ? 24
                           : 16,
                     ),
-                    child: DuaItem(
-                      azkarArray: state.azkarModel.array![index],
-                      onToggleFavorite: () {
-                        context.read<AzkarCubit>().toggleFav(
-                          index: index,
-                          azkarId: 2,
-                        );
-                      },
+                    child: Padding(
+                      padding: EdgeInsets.only(top: index == 0 ? 12 : 0),
+                      child: DuaItem(
+                        azkarArray: state.azkarModel.array![index],
+                        onToggleFavorite: () {
+                          context.read<AzkarCubit>().toggleFav(
+                            index: index,
+                            azkarId: 2,
+                          );
+                        },
+                      ),
                     ),
                   );
                 },

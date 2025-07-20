@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:islamic_app/core/utils/assets.dart';
 import 'package:islamic_app/features/azkar/presentation/manger/cubit/azkar_cubit_cubit.dart';
-import 'package:islamic_app/core/widgets/dua_item.dart';
+import 'package:islamic_app/features/azkar/presentation/views/widgets/dua_item.dart';
 
 class DifferentAzkarDetailsView extends StatelessWidget {
   const DifferentAzkarDetailsView({super.key});
@@ -33,6 +33,7 @@ class DifferentAzkarDetailsView extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: EdgeInsets.only(
+                      top: index == 0 ? 16 : 0,
                       bottom: index == state.azkarModel.array!.length - 1
                           ? 24
                           : 16,

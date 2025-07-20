@@ -42,9 +42,17 @@ class _FavoriteAnimatedButtonState extends State<FavoriteAnimatedButton>
     if (isFavorite) {
       _animationController.value = 1.0;
     }
+
     _animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-      } else if (status == AnimationStatus.dismissed) {}
+        setState(() {
+          isFavorite = true;
+        });
+      } else if (status == AnimationStatus.dismissed) {
+        setState(() {
+          isFavorite = false;
+        });
+      }
     });
 
     super.initState();

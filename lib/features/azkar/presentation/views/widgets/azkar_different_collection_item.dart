@@ -45,8 +45,11 @@ class AzkarDifferentCollectionList extends StatelessWidget {
                         azkarId: (filteredCollection[index].id! + 1),
                       );
                     },
-                    child: AzkarCollectionItem(
-                      title: filteredCollection[index].category ?? '',
+                    child: Padding(
+                      padding: EdgeInsets.only(top: index == 0 ? 12 : 0),
+                      child: AzkarCollectionItem(
+                        title: filteredCollection[index].category ?? '',
+                      ),
                     ),
                   ),
                 );
@@ -66,6 +69,7 @@ class AzkarCollectionItem extends StatelessWidget {
   final String title;
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
       padding: EdgeInsets.symmetric(horizontal: 12),
@@ -73,8 +77,8 @@ class AzkarCollectionItem extends StatelessWidget {
       height: 45,
       width: double.infinity,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        color: ColorsManger.lightBlue,
+        borderRadius: BorderRadius.circular(10),
+        color: isDarkMode ? ColorsManger.darkCard : ColorsManger.lightBlue,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

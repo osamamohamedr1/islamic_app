@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:islamic_app/core/models/azkar_model/array.dart';
 import 'package:islamic_app/core/themes/colors_manger.dart';
-import 'package:islamic_app/core/widgets/favorite_animated_button.dart';
+import 'package:islamic_app/features/azkar/presentation/views/widgets/favorite_animated_button.dart';
 import 'package:share_plus/share_plus.dart';
 
 class AzkarActionsWidget extends StatelessWidget {

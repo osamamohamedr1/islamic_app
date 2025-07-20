@@ -41,8 +41,10 @@ class AppThemes {
       backgroundColor: Colors.white,
     ),
   );
+
   static ThemeData darkTheme = ThemeData(
     iconTheme: IconThemeData(color: ColorsManger.primary),
+    scaffoldBackgroundColor: ColorsManger.darkBackground,
     brightness: Brightness.dark,
     primaryColor: ColorsManger.darkBLue,
     colorScheme: ColorScheme.dark(
@@ -50,22 +52,33 @@ class AppThemes {
       secondary: ColorsManger.primary,
     ),
     appBarTheme: AppBarTheme(
-      titleTextStyle: TextStyle(color: Colors.white, fontSize: 20),
+      backgroundColor: ColorsManger.darkCard,
+      titleTextStyle: TextStyle(
+        color: Colors.white,
+        fontSize: 20.sp,
+        fontWeight: FontWeight.bold,
+      ),
+      iconTheme: IconThemeData(color: Colors.white),
     ),
     textTheme: TextTheme(
       titleLarge: TextStyle(
-        color: ColorsManger.darkBLue,
+        color: Colors.white,
         fontSize: 30.sp,
         fontWeight: FontWeight.bold,
       ),
       titleMedium: TextStyle(
         color: Colors.white,
-        fontSize: 24,
+        fontSize: 24.sp,
+        fontWeight: FontWeight.bold,
+      ),
+      titleSmall: TextStyle(
+        color: Colors.white,
+        fontSize: 20.sp,
         fontWeight: FontWeight.bold,
       ),
       bodyLarge: TextStyle(color: Colors.white, fontSize: 18.sp),
       bodyMedium: TextStyle(color: Colors.white, fontSize: 16.sp),
-      bodySmall: TextStyle(color: Colors.white, fontSize: 14.sp),
+      bodySmall: TextStyle(color: Colors.white70, fontSize: 14.sp),
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       elevation: 5,
