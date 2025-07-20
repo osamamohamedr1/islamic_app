@@ -2,9 +2,17 @@
 class Assets {
   Assets._();
   
+  /// Assets for imagesAppIcon
+  /// assets/images/app_icon.png
+  static const String imagesAppIcon = "assets/images/app_icon.png";
+
   /// Assets for imagesCommingPrayerFrame
   /// assets/images/comming_prayer_frame.png
   static const String imagesCommingPrayerFrame = "assets/images/comming_prayer_frame.png";
+
+  /// Assets for imagesLoadingAnimation
+  /// assets/images/loading_animation.gif
+  static const String imagesLoadingAnimation = "assets/images/loading_animation.gif";
 
   /// Assets for jsonAllDua
   /// assets/json/all_dua.json

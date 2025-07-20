@@ -13,16 +13,15 @@ class HelpFun {
     required String boxName,
   }) async {
     try {
-      final String jsonString = await rootBundle.loadString(Assets.jsonAllDua);
+      final String jsonString = await rootBundle.loadString(Assets.jsonAzkar);
       final jsonAzkar = jsonDecode(jsonString);
-      var item = AzkarModel.fromJson(jsonAzkar);
-      Hive.box<AzkarModel>(allDuaBox).put(item.id, item);
-      // for (var zkr in jsonAzkar) {
-      //   if (zkr['id'] == sectionId) {
-      //     var item = AzkarModel.fromJson(zkr);
-      //     Hive.box<AzkarModel>(allDuaBox).put(item.id, item);
-      //   }
-      // }
+
+      for (var zkr in jsonAzkar) {
+        if (zkr['id'] == sectionId) {
+          var item = AzkarModel.fromJson(zkr);
+          Hive.box<AzkarModel>(allDuaBox).put(item.id, item);
+        }
+      }
     } catch (e) {
       log(e.toString());
     }
