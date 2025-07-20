@@ -1,2 +1,2 @@
-const String azkarBox = 'azkarBox6';
-const String differerntAzkarBox = 'azkarCollectionBox2';
+const String azkarBox = 'azkarBox7';
+const String differerntAzkarBox = 'azkarCollectionBox3';

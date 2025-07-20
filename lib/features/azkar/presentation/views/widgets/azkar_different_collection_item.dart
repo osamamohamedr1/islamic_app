@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:islamic_app/core/models/azkar_model/azkar_model.dart';
 import 'package:islamic_app/core/routes/routes.dart';
-import 'package:islamic_app/core/themes/colors_manger.dart';
 import 'package:islamic_app/core/utils/assets.dart';
 import 'package:islamic_app/core/utils/extensions.dart';
 import 'package:islamic_app/features/azkar/presentation/manger/cubit/azkar_cubit_cubit.dart';
+import 'package:islamic_app/features/azkar/presentation/views/widgets/azkar_collection_item.dart';
 
 class AzkarDifferentCollectionList extends StatelessWidget {
   const AzkarDifferentCollectionList({super.key});
@@ -59,33 +59,6 @@ class AzkarDifferentCollectionList extends StatelessWidget {
             return Center(child: Image.asset(Assets.imagesLoadingAnimation));
           }
         },
-      ),
-    );
-  }
-}
-
-class AzkarCollectionItem extends StatelessWidget {
-  const AzkarCollectionItem({super.key, required this.title});
-  final String title;
-  @override
-  Widget build(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      padding: EdgeInsets.symmetric(horizontal: 12),
-
-      height: 45,
-      width: double.infinity,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: isDarkMode ? ColorsManger.darkCard : ColorsManger.lightBlue,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(title, style: Theme.of(context).textTheme.bodyMedium),
-          Icon(Icons.arrow_forward_rounded, size: 22),
-        ],
       ),
     );
   }
