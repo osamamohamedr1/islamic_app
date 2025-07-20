@@ -1,2 +1,3 @@
-const String azkarBox = 'azkarBox7';
-const String differerntAzkarBox = 'azkarCollectionBox3';
+const String azkarBox = 'azkarBox8';
+const String differerntAzkarBox = 'azkarCollectionBox4';
+const String favoriteAzkarBox = 'favoriteAzkarBox1';

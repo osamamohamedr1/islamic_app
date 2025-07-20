@@ -16,7 +16,7 @@ void main() async {
   await Hive.initFlutter();
 
   Hive.registerAdapter(AzkarModelAdapter());
-  Hive.registerAdapter(ArrayAdapter());
+  Hive.registerAdapter(AzkarArrayAdapter());
   await Hive.openBox<AzkarModel>(azkarBox);
   await Hive.openBox<AzkarModel>(differerntAzkarBox);
 

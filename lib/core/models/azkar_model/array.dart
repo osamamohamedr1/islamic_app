@@ -2,7 +2,7 @@ import 'package:hive/hive.dart';
 part 'array.g.dart';
 
 @HiveType(typeId: 1)
-class Array {
+class AzkarArray {
   @HiveField(0)
   int? id;
   @HiveField(1)
@@ -16,7 +16,7 @@ class Array {
   @HiveField(5)
   bool isFavorite;
 
-  Array({
+  AzkarArray({
     this.id,
     this.text,
     this.count,
@@ -25,7 +25,7 @@ class Array {
     this.isFavorite = false,
   });
 
-  factory Array.fromJson(Map<String, dynamic> json) => Array(
+  factory AzkarArray.fromJson(Map<String, dynamic> json) => AzkarArray(
     id: json['id'] as int?,
     text: json['text'] as String?,
     count: json['count'] as int?,

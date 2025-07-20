@@ -6,6 +6,7 @@ import 'package:islamic_app/features/azkar/presentation/views/sleep_azkar_view.d
 import 'package:islamic_app/features/azkar/presentation/views/widgets/azkar_different_collection_item.dart';
 import 'package:islamic_app/features/bottom_nav_bar.dart/presentation/views/bottom_nav_bar_view.dart';
 import 'package:islamic_app/features/azkar/presentation/views/all_doua_view.dart';
+import 'package:islamic_app/features/favorites/presentation/views/favorite_view.dart';
 import 'package:islamic_app/features/home/presentation/views/home_view.dart';
 
 Route onGenerateRoute(RouteSettings settting) {
@@ -51,6 +52,12 @@ Route onGenerateRoute(RouteSettings settting) {
       return MaterialPageRoute(
         builder: (context) {
           return DifferentAzkarDetailsView();
+        },
+      );
+    case Routes.favoriteAzkar:
+      return MaterialPageRoute(
+        builder: (context) {
+          return FavoriteView();
         },
       );
     default:

@@ -14,7 +14,7 @@ class AzkarModel {
   @HiveField(3)
   String? filename;
   @HiveField(4)
-  List<Array>? array;
+  List<AzkarArray>? array;
 
   AzkarModel({this.id, this.category, this.audio, this.filename, this.array});
 
@@ -24,7 +24,7 @@ class AzkarModel {
     audio: json['audio'] as String?,
     filename: json['filename'] as String?,
     array: (json['array'] as List<dynamic>?)
-        ?.map((e) => Array.fromJson(e as Map<String, dynamic>))
+        ?.map((e) => AzkarArray.fromJson(e as Map<String, dynamic>))
         .toList(),
   );
 

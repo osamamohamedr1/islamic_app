@@ -5,7 +5,7 @@ import 'package:islamic_app/features/azkar/presentation/views/widgets/azkar_acti
 import 'package:islamic_app/features/azkar/presentation/views/widgets/azkar_text_widget.dart';
 
 class DuaItem extends StatelessWidget {
-  final Array azkarArray;
+  final AzkarArray azkarArray;
   final void Function() onToggleFavorite;
   const DuaItem({
     super.key,

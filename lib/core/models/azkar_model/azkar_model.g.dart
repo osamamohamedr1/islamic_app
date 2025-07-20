@@ -21,7 +21,7 @@ class AzkarModelAdapter extends TypeAdapter<AzkarModel> {
       category: fields[1] as String?,
       audio: fields[2] as String?,
       filename: fields[3] as String?,
-      array: (fields[4] as List?)?.cast<Array>(),
+      array: (fields[4] as List?)?.cast<AzkarArray>(),
     );
   }
 

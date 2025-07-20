@@ -4,6 +4,7 @@ import 'package:islamic_app/core/routes/routes.dart';
 import 'package:islamic_app/core/utils/assets.dart';
 import 'package:islamic_app/core/utils/extensions.dart';
 import 'package:islamic_app/features/azkar/presentation/manger/cubit/azkar_cubit_cubit.dart';
+import 'package:islamic_app/features/favorites/presentation/manger/cubit/favorite_cubit.dart';
 import 'package:islamic_app/features/home/presentation/views/widgets/azkar_item.dart';
 
 class AzkarCategorySection extends StatelessWidget {
@@ -66,7 +67,10 @@ class AzkarCategorySection extends StatelessWidget {
                 child: AzkarItem(
                   title: 'المفضلة',
                   iconPath: Assets.svgsFavorite,
-                  onTap: () {},
+                  onTap: () {
+                    context.pushNamed(Routes.favoriteAzkar);
+                    context.read<FavoriteCubit>().getFavorites();
+                  },
                 ),
               ),
             ],

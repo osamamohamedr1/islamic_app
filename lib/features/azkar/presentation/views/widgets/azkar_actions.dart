@@ -10,7 +10,7 @@ class AzkarActionsWidget extends StatelessWidget {
     required this.azkarArray,
     required this.onToggleFavorite,
   });
-  final Array azkarArray;
+  final AzkarArray azkarArray;
   final void Function() onToggleFavorite;
   @override
   Widget build(BuildContext context) {
