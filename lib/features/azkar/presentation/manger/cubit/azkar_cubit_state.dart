@@ -30,3 +30,15 @@ final class SleepAkarLoaded extends AzkarCubitState {
 
   SleepAkarLoaded(this.azkarModel);
 }
+
+final class DifferentAzkarCollectionLoaded extends AzkarCubitState {
+  final List<AzkarModel> azkarCollection;
+
+  DifferentAzkarCollectionLoaded(this.azkarCollection);
+}
+
+final class DifferentAzkarDetailsLoaded extends AzkarCubitState {
+  final AzkarModel azkarModel;
+
+  DifferentAzkarDetailsLoaded(this.azkarModel);
+}

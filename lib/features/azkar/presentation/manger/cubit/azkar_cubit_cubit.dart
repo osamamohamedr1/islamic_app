@@ -25,6 +25,19 @@ class AzkarCubit extends Cubit<AzkarCubitState> {
     emit(SleepAkarLoaded(result));
   }
 
+  Future<void> getDifferentAzkarCollection() async {
+    var result = await azkarRepo.differentAzkarCollection();
+    emit(DifferentAzkarCollectionLoaded(result));
+  }
+
+  Future<void> getAzkarDetails({required int azkarId}) async {
+    var result = await azkarRepo.getAzkar(
+      azkarId: azkarId,
+      boxName: differerntAzkarBox,
+    );
+    emit(DifferentAzkarDetailsLoaded(result));
+  }
+
   Future<void> toggleFav({required int index, required int azkarId}) async {
     await azkarRepo.toggleFavorite(index: index, azkarId: azkarId);
   }

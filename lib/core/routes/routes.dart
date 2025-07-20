@@ -6,5 +6,8 @@ class Routes {
   static const String allDua = '/allDua';
   static const String morningAndNightAzkar = '/morningAndNightAzkar';
   static const String sleepAzkar = '/sleepAzkar';
+  static const String differentAzkarCollection = '/differentAzkarCollection';
+  static const String differentAzkarDetails = '/differentAzkarDetails';
+
   static const String settings = '/settings';
 }

@@ -55,7 +55,10 @@ class AzkarCategorySection extends StatelessWidget {
                 child: AzkarItem(
                   title: 'أذكار متنوعة',
                   iconPath: Assets.svgsDifferentAzkar,
-                  onTap: () {},
+                  onTap: () {
+                    context.pushNamed(Routes.differentAzkarCollection);
+                    context.read<AzkarCubit>().getDifferentAzkarCollection();
+                  },
                 ),
               ),
 
