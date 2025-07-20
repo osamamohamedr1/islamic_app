@@ -10,6 +10,10 @@ class Assets {
   /// assets/images/comming_prayer_frame.png
   static const String imagesCommingPrayerFrame = "assets/images/comming_prayer_frame.png";
 
+  /// Assets for imagesDecorationBackgound
+  /// assets/images/decoration_backgound.png
+  static const String imagesDecorationBackgound = "assets/images/decoration_backgound.png";
+
   /// Assets for imagesFavoriteDecoration
   /// assets/images/favorite_decoration.png
   static const String imagesFavoriteDecoration = "assets/images/favorite_decoration.png";
@@ -17,6 +21,14 @@ class Assets {
   /// Assets for imagesLoadingAnimation
   /// assets/images/loading_animation.gif
   static const String imagesLoadingAnimation = "assets/images/loading_animation.gif";
+
+  /// Assets for imagesSplash
+  /// assets/images/splash.png
+  static const String imagesSplash = "assets/images/splash.png";
+
+  /// Assets for imagesSplashAndroid12
+  /// assets/images/splash_android_12.png
+  static const String imagesSplashAndroid12 = "assets/images/splash_android_12.png";
 
   /// Assets for jsonAllahNamesAr
   /// assets/json/allah_names_ar.json

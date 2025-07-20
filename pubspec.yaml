@@ -38,6 +38,7 @@ dependencies:
   flutter_bloc: ^9.1.1
   flutter_launcher_icons: ^0.14.4
   flutter_localization: ^0.3.3
+  flutter_native_splash: ^2.4.6
   flutter_screenutil: ^5.9.3
   flutter_svg: ^2.2.0
   font_awesome_flutter: ^10.8.0
@@ -102,8 +103,6 @@ flutter_assets:
   filename: assets.dart
   field_prefix: null
 
-
-
 flutter_launcher_icons:
   android: true
   ios: true
@@ -113,6 +112,14 @@ flutter_launcher_icons:
 
   image_path: "assets/images/app_icon.png"
 
-  # adaptive_icon_background: "#ffffff"
-  # adaptive_icon_foreground: "assets/icon/adaptive_foreground.png"
+
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/images/splash.png
  
+
+  android_12:
+    image: assets/images/splash_android_12.png
+    icon_background_color: "#ffffff"
+    

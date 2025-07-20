@@ -14,7 +14,7 @@ class FavortieItem extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         image: DecorationImage(
-          image: AssetImage(Assets.imagesFavoriteDecoration),
+          image: AssetImage(Assets.imagesDecorationBackgound),
           fit: BoxFit.fitWidth,
           alignment: Alignment.topCenter,
         ),
@@ -26,8 +26,12 @@ class FavortieItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 30),
-          Text(text, style: Theme.of(context).textTheme.bodyMedium),
+          Text(
+            text,
+            style: Theme.of(
+              context,
+            ).textTheme.bodyMedium?.copyWith(color: Colors.black),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             spacing: 16,
