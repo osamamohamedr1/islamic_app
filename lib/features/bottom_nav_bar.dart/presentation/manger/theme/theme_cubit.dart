@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:islamic_app/core/utils/cache_helper.dart';
+import 'package:hive_flutter/adapters.dart';
+import 'package:islamic_app/core/utils/consts.dart';
 part 'theme_state.dart';
 
 class ThemeCubit extends Cubit<ThemeMode> {
@@ -9,8 +10,9 @@ class ThemeCubit extends Cubit<ThemeMode> {
   final String kLight = 'light';
   final String kDark = 'dark';
   final String kSystem = 'system';
+  var box = Hive.box(themeBox);
   void loadTheme() {
-    final curretnThemeMode = CacheHelper.getData(key: themeModeKey);
+    final curretnThemeMode = box.get(themeModeKey);
     if (curretnThemeMode != null) {
       if (curretnThemeMode == kLight) {
         emit(ThemeMode.light);
@@ -42,9 +44,6 @@ class ThemeCubit extends Cubit<ThemeMode> {
         ? ThemeMode.dark
         : ThemeMode.light;
     emit(newTheme);
-    await CacheHelper.saveData(
-      key: themeModeKey,
-      value: newTheme == ThemeMode.light ? kLight : kDark,
-    );
+    await box.put(themeModeKey, newTheme == ThemeMode.light ? kLight : kDark);
   }
 }

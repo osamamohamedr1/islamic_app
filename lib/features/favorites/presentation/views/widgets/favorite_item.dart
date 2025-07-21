@@ -31,7 +31,7 @@ class FavortieItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: 30),
+          SizedBox(height: 5),
           Text(
             text,
             textAlign: TextAlign.center,
@@ -54,7 +54,7 @@ class FavortieItem extends StatelessWidget {
                 icon: Icon(Icons.share),
               ),
               Container(
-                padding: EdgeInsets.all(12),
+                padding: EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(

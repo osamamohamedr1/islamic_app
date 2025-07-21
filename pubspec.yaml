@@ -52,7 +52,8 @@ dependencies:
   prayers_times: ^0.0.6
   quran: ^1.3.3
   share_plus: ^11.0.0
-  shared_preferences: ^2.5.3
+  shared_preferences: ^2.5.2
+  just_audio: ^0.10.4
 
 dev_dependencies:
   flutter_lints: ^5.0.0
@@ -112,14 +113,10 @@ flutter_launcher_icons:
 
   image_path: "assets/images/app_icon.png"
 
-
-
 flutter_native_splash:
-  color: "#ffffff"
+  color: "#071C37"
   image: assets/images/splash.png
- 
 
   android_12:
     image: assets/images/splash_android_12.png
-    icon_background_color: "#ffffff"
-    
+    icon_background_color: "#071C37"

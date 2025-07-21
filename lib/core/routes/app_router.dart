@@ -60,6 +60,7 @@ Route onGenerateRoute(RouteSettings settting) {
           return FavoriteView();
         },
       );
+
     default:
       return MaterialPageRoute(
         builder: (context) {

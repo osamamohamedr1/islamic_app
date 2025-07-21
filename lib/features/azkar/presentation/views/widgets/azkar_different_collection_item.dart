@@ -42,7 +42,7 @@ class AzkarDifferentCollectionList extends StatelessWidget {
                     onTap: () {
                       context.pushNamed(Routes.differentAzkarDetails);
                       context.read<AzkarCubit>().getAzkarDetails(
-                        azkarId: (filteredCollection[index].id! + 1),
+                        azkarId: (filteredCollection[index].id! - 1),
                       );
                     },
                     child: Padding(

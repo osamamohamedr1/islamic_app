@@ -62,17 +62,6 @@ class AzkarCategorySection extends StatelessWidget {
                   },
                 ),
               ),
-
-              Expanded(
-                child: AzkarItem(
-                  title: 'المفضلة',
-                  iconPath: Assets.svgsFavorite,
-                  onTap: () {
-                    context.pushNamed(Routes.favoriteAzkar);
-                    context.read<FavoriteCubit>().getFavorites();
-                  },
-                ),
-              ),
             ],
           ),
 
@@ -87,9 +76,12 @@ class AzkarCategorySection extends StatelessWidget {
               ),
               Expanded(
                 child: AzkarItem(
-                  title: 'التسبيح',
-                  iconPath: Assets.svgsTasbeh,
-                  onTap: () {},
+                  title: 'المفضلة',
+                  iconPath: Assets.svgsFavorite,
+                  onTap: () {
+                    context.pushNamed(Routes.favoriteAzkar);
+                    context.read<FavoriteCubit>().getFavorites();
+                  },
                 ),
               ),
             ],

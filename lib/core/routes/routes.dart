@@ -7,4 +7,5 @@ class Routes {
   static const String differentAzkarCollection = '/differentAzkarCollection';
   static const String differentAzkarDetails = '/differentAzkarDetails';
   static const String favoriteAzkar = '/favoriteAzkar';
+  static const String tasbeh = '/tasbeh';
 }

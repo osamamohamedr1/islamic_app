@@ -1,30 +1,39 @@
 // ignore_for_file: prefer_single_quotes
 class Assets {
   Assets._();
-  
+
   /// Assets for imagesAppIcon
   /// assets/images/app_icon.png
   static const String imagesAppIcon = "assets/images/app_icon.png";
 
   /// Assets for imagesCommingPrayerFrame
   /// assets/images/comming_prayer_frame.png
-  static const String imagesCommingPrayerFrame = "assets/images/comming_prayer_frame.png";
+  static const String imagesCommingPrayerFrame =
+      "assets/images/comming_prayer_frame.png";
 
   /// Assets for imagesDarkDecorationBackground
   /// assets/images/dark_decoration_background.png
-  static const String imagesDarkDecorationBackground = "assets/images/dark_decoration_background.png";
+  static const String imagesDarkDecorationBackground =
+      "assets/images/dark_decoration_background.png";
 
   /// Assets for imagesDecorationBackgound
   /// assets/images/decoration_backgound.png
-  static const String imagesDecorationBackgound = "assets/images/decoration_backgound.png";
+  static const String imagesDecorationBackgound =
+      "assets/images/decoration_backgound.png";
 
   /// Assets for imagesFavoriteDecoration
   /// assets/images/favorite_decoration.png
-  static const String imagesFavoriteDecoration = "assets/images/favorite_decoration.png";
+  static const String imagesFavoriteDecoration =
+      "assets/images/favorite_decoration.png";
 
   /// Assets for imagesLoadingAnimation
   /// assets/images/loading_animation.gif
-  static const String imagesLoadingAnimation = "assets/images/loading_animation.gif";
+  static const String imagesLoadingAnimation =
+      "assets/images/loading_animation.gif";
+
+  /// Assets for imagesSebha
+  /// assets/images/Sebha.png
+  static const String imagesSebha = "assets/images/Sebha.png";
 
   /// Assets for imagesSplash
   /// assets/images/splash.png
@@ -32,7 +41,8 @@ class Assets {
 
   /// Assets for imagesSplashAndroid12
   /// assets/images/splash_android_12.png
-  static const String imagesSplashAndroid12 = "assets/images/splash_android_12.png";
+  static const String imagesSplashAndroid12 =
+      "assets/images/splash_android_12.png";
 
   /// Assets for jsonAllahNamesAr
   /// assets/json/allah_names_ar.json
@@ -122,4 +132,3 @@ class Assets {
   /// assets/svgs/zhr.svg
   static const String svgsZhr = "assets/svgs/zhr.svg";
 }
-
