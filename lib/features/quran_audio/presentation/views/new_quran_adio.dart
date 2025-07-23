@@ -1,367 +1,215 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:islamic_app/features/quran_audio/presentation/manger/cubit/quran_cubit.dart';
-// import 'package:islamic_app/core/themes/colors_manger.dart';
-// import 'package:islamic_app/core/utils/assets.dart';
-// import 'package:islamic_app/features/quran_audio/data/models/reciter_model.dart';
-// import 'package:islamic_app/features/quran_audio/presentation/views/widgets/progress_bar_widget.dart';
+import 'dart:developer';
+import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:islamic_app/core/themes/colors_manger.dart';
+import 'package:islamic_app/core/utils/consts.dart';
+import 'package:islamic_app/features/quran_audio/data/models/reciter_model.dart';
+import 'package:islamic_app/features/quran_audio/presentation/views/widgets/audio_player_controlers.dart';
+import 'package:islamic_app/features/quran_audio/presentation/views/widgets/surah_list_widget.dart';
 
-// class NewQuranAudioView extends StatelessWidget {
-//   const NewQuranAudioView({super.key});
+class NewQuranAudioView extends StatefulWidget {
+  const NewQuranAudioView({super.key});
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return BlocProvider(
-//       create: (_) => QuranAudioCubit()..initialize(),
-//       child: const QuranAudioScreen(),
-//     );
-//   }
-// }
+  @override
+  State<NewQuranAudioView> createState() => _NewQuranAudioViewState();
+}
 
-// class QuranAudioScreen extends StatelessWidget {
-//   const QuranAudioScreen({super.key});
+class _NewQuranAudioViewState extends State<NewQuranAudioView>
+    with AutomaticKeepAliveClientMixin {
+  final AudioPlayer _player = AudioPlayer();
+  ReciterModel _currentReciter = reciters[0];
+  String? currentSurahName;
+  bool isPlaying = false;
+  bool isLoading = false;
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text(
-//           'القرآن الكريم',
-//           style: Theme.of(context).textTheme.titleSmall?.copyWith(
-//             color: ColorsManger.primary,
-//             fontWeight: FontWeight.bold,
-//           ),
-//         ),
-//         iconTheme: IconThemeData(color: ColorsManger.primary),
-//         backgroundColor: Colors.transparent,
-//         elevation: 0,
-//         actions: [
-//           IconButton(
-//             onPressed: () {},
-//             icon: Icon(Icons.search, color: ColorsManger.primary),
-//           ),
-//         ],
-//       ),
-//       body: Column(
-//         children: [
-//           Expanded(
-//             child: BlocBuilder<QuranAudioCubit, QuranAudioState>(
-//               builder: (context, state) {
-//                 if (state is QuranAudioLoading) {
-//                   return Center(
-//                     child: Column(
-//                       mainAxisAlignment: MainAxisAlignment.center,
-//                       children: [
-//                         Image.asset(Assets.imagesLoadingAnimation),
-//                         const SizedBox(height: 16),
-//                         Text(
-//                           'جاري تحميل السور...',
-//                           style: Theme.of(context).textTheme.bodyMedium
-//                               ?.copyWith(color: ColorsManger.primary),
-//                         ),
-//                       ],
-//                     ),
-//                   );
-//                 }
+  Duration _position = Duration.zero;
+  Duration _buffered = Duration.zero;
+  Duration? _duration;
 
-//                 if (state is QuranAudioError) {
-//                   return Center(
-//                     child: Column(
-//                       mainAxisAlignment: MainAxisAlignment.center,
-//                       children: [
-//                         Icon(Icons.error_outline, size: 64, color: Colors.red),
-//                         const SizedBox(height: 16),
-//                         Text(
-//                           state.message,
-//                           style: Theme.of(
-//                             context,
-//                           ).textTheme.bodyMedium?.copyWith(color: Colors.red),
-//                           textAlign: TextAlign.center,
-//                         ),
-//                         const SizedBox(height: 16),
-//                         ElevatedButton(
-//                           onPressed: () {
-//                             context.read<QuranAudioCubit>().initialize();
-//                           },
-//                           child: const Text('إعادة المحاولة'),
-//                         ),
-//                       ],
-//                     ),
-//                   );
-//                 }
+  final audio = Hive.box(audioBox);
 
-//                 if (state is SurahListLoaded) {
-//                   return RefreshIndicator(
-//                     onRefresh: () async {
-//                       await context.read<QuranAudioCubit>().initialize();
-//                     },
-//                     child: ListView.separated(
-//                       padding: const EdgeInsets.symmetric(horizontal: 16),
-//                       itemCount: state.surahList.length,
-//                       separatorBuilder: (context, index) =>
-//                           const Divider(height: 0, thickness: 0.1),
-//                       itemBuilder: (context, index) {
-//                         final surah = state.surahList[index];
-//                         final isCurrentSurah =
-//                             surah.arabic == state.currentSurahName;
+  @override
+  void initState() {
+    super.initState();
 
-//                         return Container(
-//                           margin: const EdgeInsets.symmetric(vertical: 4),
-//                           decoration: BoxDecoration(
-//                             color: isCurrentSurah
-//                                 ? ColorsManger.primary.withOpacity(0.1)
-//                                 : Colors.transparent,
-//                             borderRadius: BorderRadius.circular(12),
-//                             border: isCurrentSurah
-//                                 ? Border.all(
-//                                     color: ColorsManger.primary.withOpacity(
-//                                       0.2,
-//                                     ),
-//                                     width: 1,
-//                                   )
-//                                 : null,
-//                           ),
-//                           child: ListTile(
-//                             contentPadding: const EdgeInsets.symmetric(
-//                               horizontal: 16,
-//                             ),
-//                             leading: CircleAvatar(
-//                               backgroundColor: isCurrentSurah
-//                                   ? ColorsManger.primary
-//                                   : ColorsManger.primary.withOpacity(0.1),
-//                               child: Text(
-//                                 '${surah.id}',
-//                                 style: TextStyle(
-//                                   color: isCurrentSurah
-//                                       ? Colors.white
-//                                       : ColorsManger.primary,
-//                                   fontWeight: FontWeight.normal,
-//                                   fontSize: isCurrentSurah ? 16 : 14,
-//                                 ),
-//                               ),
-//                             ),
-//                             title: Text(
-//                               surah.arabic ?? '',
-//                               style: Theme.of(context).textTheme.bodyMedium
-//                                   ?.copyWith(
-//                                     color: isCurrentSurah
-//                                         ? ColorsManger.primary
-//                                         : Colors.black87,
-//                                     fontWeight: isCurrentSurah
-//                                         ? FontWeight.bold
-//                                         : FontWeight.normal,
-//                                   ),
-//                             ),
-//                             subtitle: surah.english != null
-//                                 ? Text(
-//                                     surah.english!,
-//                                     style: Theme.of(context).textTheme.bodySmall
-//                                         ?.copyWith(color: Colors.grey[600]),
-//                                   )
-//                                 : null,
-//                             trailing: AnimatedSwitcher(
-//                               duration: const Duration(milliseconds: 300),
-//                               child: isCurrentSurah && state.isPlaying
-//                                   ? Image.asset(
-//                                       Assets.imagesVoiceAnimation,
-//                                       width: 35,
-//                                       height: 35,
-//                                       color: ColorsManger.primary,
-//                                       key: const ValueKey('voice_animation'),
-//                                     )
-//                                   : Icon(
-//                                       Icons.play_circle_fill,
-//                                       color: ColorsManger.primary,
-//                                       size: 35,
-//                                       key: const ValueKey('play_icon'),
-//                                     ),
-//                             ),
-//                             onTap: () {
-//                               context.read<QuranAudioCubit>().playSurah(
-//                                 surah.id ?? 1,
-//                                 surah.arabic ?? '',
-//                               );
-//                             },
-//                           ),
-//                         );
-//                       },
-//                     ),
-//                   );
-//                 }
+    final savedSurah = audio.get('surah');
+    final savedUrl = audio.get('url');
+    final savedReciterName = audio.get('reciterName');
+    final savedReciterBaseUrl = audio.get('reciterBaseUrl');
 
-//                 return const Center(child: Text('لا توجد بيانات متاحة'));
-//               },
-//             ),
-//           ),
+    if (savedSurah != null &&
+        savedUrl != null &&
+        savedReciterName != null &&
+        savedReciterBaseUrl != null) {
+      setState(() {
+        currentSurahName = savedSurah;
+        _currentReciter = reciters.firstWhere(
+          (r) =>
+              r.nameAr == savedReciterName && r.baseUrl == savedReciterBaseUrl,
+          orElse: () => reciters[0],
+        );
+      });
+      _player.setUrl(savedUrl);
+    }
 
-//           const AudioPlayerBar(),
-//         ],
-//       ),
-//     );
-//   }
-// }
+    _player.durationStream.listen((d) {
+      if (d != null && mounted) setState(() => _duration = d);
+    });
 
-// class AudioPlayerBar extends StatelessWidget {
-//   const AudioPlayerBar({super.key});
+    _player.positionStream.listen((p) {
+      if (mounted) setState(() => _position = p);
+    });
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return BlocBuilder<QuranAudioCubit, QuranAudioState>(
-//       builder: (context, state) {
-//         if (state is! SurahListLoaded || state.currentSurahName == null) {
-//           return const SizedBox.shrink();
-//         }
+    _player.bufferedPositionStream.listen((b) {
+      if (mounted) setState(() => _buffered = b);
+    });
 
-//         final cubit = context.read<QuranAudioCubit>();
+    _player.playerStateStream.listen((s) {
+      if (!mounted) return;
+      setState(() {
+        isLoading =
+            s.processingState == ProcessingState.loading ||
+            s.processingState == ProcessingState.buffering;
+        isPlaying = s.playing;
+      });
 
-//         return AnimatedContainer(
-//           duration: const Duration(milliseconds: 300),
-//           padding: const EdgeInsets.all(16),
-//           decoration: BoxDecoration(
-//             color: ColorsManger.offWhite,
-//             borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
-//             boxShadow: [
-//               BoxShadow(
-//                 color: Colors.black.withOpacity(0.1),
-//                 blurRadius: 10,
-//                 offset: const Offset(0, -2),
-//               ),
-//             ],
-//           ),
-//           child: Column(
-//             mainAxisSize: MainAxisSize.min,
-//             children: [
-//               Container(
-//                 width: 40,
-//                 height: 4,
-//                 decoration: BoxDecoration(
-//                   color: Colors.grey[300],
-//                   borderRadius: BorderRadius.circular(2),
-//                 ),
-//               ),
-//               const SizedBox(height: 16),
+      if (s.processingState == ProcessingState.completed) {
+        _player.seek(Duration.zero);
+        setState(() {
+          isPlaying = false;
+          _position = Duration.zero;
+          _buffered = Duration.zero;
+        });
+      }
+    });
+  }
 
-//               Row(
-//                 children: [
-//                   Expanded(
-//                     flex: 1,
-//                     child: Column(
-//                       crossAxisAlignment: CrossAxisAlignment.start,
-//                       mainAxisSize: MainAxisSize.min,
-//                       children: [
-//                         Text(
-//                           'سورة ${state.currentSurahName ?? ''}',
-//                           style: Theme.of(context).textTheme.bodyMedium
-//                               ?.copyWith(
-//                                 color: ColorsManger.primary,
-//                                 fontWeight: FontWeight.bold,
-//                               ),
-//                           overflow: TextOverflow.ellipsis,
-//                         ),
+  Future<void> _playSurah(int id, String name) async {
+    final paddedId = id.toString().padLeft(3, '0');
+    final url = '${_currentReciter.baseUrl}/$paddedId.mp3';
 
-//                         Text(
-//                           state.currentReciter.nameAr,
-//                           style: Theme.of(context).textTheme.bodySmall
-//                               ?.copyWith(color: Colors.grey[600]),
-//                           overflow: TextOverflow.ellipsis,
-//                         ),
-//                       ],
-//                     ),
-//                   ),
+    await audio.put('surah', name);
+    await audio.put('url', url);
+    await audio.put('reciterName', _currentReciter.nameAr);
+    await audio.put('reciterBaseUrl', _currentReciter.baseUrl);
 
-//                   // Play/Pause button
-//                   Container(
-//                     margin: const EdgeInsets.symmetric(horizontal: 16),
-//                     child: state.isLoading
-//                         ? Container(
-//                             width: 56,
-//                             height: 56,
-//                             padding: const EdgeInsets.all(12),
-//                             decoration: BoxDecoration(
-//                               color: ColorsManger.primary.withOpacity(0.1),
-//                               shape: BoxShape.circle,
-//                             ),
-//                             child: const CircularProgressIndicator(
-//                               color: ColorsManger.primary,
-//                               strokeWidth: 3,
-//                             ),
-//                           )
-//                         : IconButton(
-//                             icon: Container(
-//                               width: 56,
-//                               height: 56,
-//                               decoration: BoxDecoration(
-//                                 color: ColorsManger.primary,
-//                                 shape: BoxShape.circle,
-//                                 boxShadow: [
-//                                   BoxShadow(
-//                                     color: ColorsManger.primary.withOpacity(
-//                                       0.3,
-//                                     ),
-//                                     blurRadius: 8,
-//                                     offset: const Offset(0, 2),
-//                                   ),
-//                                 ],
-//                               ),
-//                               child: Icon(
-//                                 state.isPlaying
-//                                     ? Icons.pause
-//                                     : Icons.play_arrow,
-//                                 size: 32,
-//                                 color: Colors.white,
-//                               ),
-//                             ),
-//                             onPressed: cubit.togglePlayPause,
-//                           ),
-//                   ),
+    try {
+      setState(() {
+        currentSurahName = name;
+        isPlaying = true;
+      });
 
-//                   Expanded(
-//                     flex: 1,
-//                     child: Container(
-//                       padding: const EdgeInsets.symmetric(horizontal: 12),
-//                       decoration: BoxDecoration(
-//                         border: Border.all(
-//                           color: ColorsManger.primary.withOpacity(0.3),
-//                         ),
-//                         borderRadius: BorderRadius.circular(8),
-//                       ),
-//                       child: DropdownButton<ReciterModel>(
-//                         isExpanded: true,
-//                         value: state.currentReciter,
-//                         dropdownColor: Colors.white,
-//                         iconEnabledColor: ColorsManger.primary,
-//                         underline: const SizedBox.shrink(),
-//                         onChanged: cubit.changeReciter,
-//                         items: reciters.map((reciter) {
-//                           return DropdownMenuItem(
-//                             value: reciter,
-//                             child: Text(
-//                               reciter.nameAr,
-//                               maxLines: 1,
-//                               overflow: TextOverflow.ellipsis,
-//                               style: Theme.of(context).textTheme.bodyMedium
-//                                   ?.copyWith(color: ColorsManger.primary),
-//                             ),
-//                           );
-//                         }).toList(),
-//                       ),
-//                     ),
-//                   ),
-//                 ],
-//               ),
+      await _player.setUrl(url);
+      await _player.play();
+    } catch (e) {
+      log("Error: $e");
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text("حدث خطأ أثناء تشغيل السورة")));
+      }
+    }
+  }
 
-//               const SizedBox(height: 16),
+  Future<void> _togglePlayPause() async {
+    try {
+      if (_player.playing) {
+        await _player.pause();
+        setState(() => isPlaying = false);
+      } else {
+        if (_player.audioSource == null) {
+          final savedUrl = audio.get('url');
+          final savedSurah = audio.get('surah');
+          if (savedUrl != null && savedSurah != null) {
+            await _player.setUrl(savedUrl);
+            setState(() {
+              currentSurahName = savedSurah;
+              isPlaying = true;
+            });
+          } else {
+            await _playSurah(1, "الفاتحة");
+            return;
+          }
+        }
+        await _player.play();
+        setState(() => isPlaying = true);
+      }
+    } catch (e) {
+      log("Toggle error: $e");
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text("حدث خطأ أثناء تشغيل السورة")));
+      }
+    }
+  }
 
-//               ProgressBarWidget(
-//                 position: state.position,
-//                 buffered: state.buffered,
-//                 duration: state.duration,
-//                 player: cubit.player,
-//               ),
-//             ],
-//           ),
-//         );
-//       },
-//     );
-//   }
-// }
+  @override
+  void dispose() {
+    _player.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    return Scaffold(
+      appBar: AppBar(
+        scrolledUnderElevation: 0,
+        iconTheme: IconThemeData(color: Theme.of(context).colorScheme.primary),
+        title: Text(
+          'القرآن الكريم',
+          style: Theme.of(context).textTheme.titleSmall!.copyWith(
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.search, color: ColorsManger.primary),
+          ),
+        ],
+      ),
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: SurahListWidget(
+              currentSurahName: currentSurahName,
+              onSurahTap: _playSurah,
+            ),
+          ),
+          Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: AudioPlayerControls(
+              currentSurahName: currentSurahName,
+              currentReciter: _currentReciter,
+              isLoading: isLoading,
+              isPlaying: isPlaying,
+              onTogglePlayPause: _togglePlayPause,
+              onReciterChange: (reciter) {
+                setState(() {
+                  _currentReciter = reciter;
+                  if (_player.playing) {
+                    _player.stop();
+                    isPlaying = false;
+                    currentSurahName = null;
+                  }
+                });
+              },
+              position: _position,
+              buffered: _buffered,
+              duration: _duration,
+              player: _player,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  bool get wantKeepAlive => true;
+}
