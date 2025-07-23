@@ -5,7 +5,6 @@ import 'package:islamic_app/core/themes/colors_manger.dart';
 import 'package:islamic_app/core/utils/assets.dart';
 import 'package:islamic_app/features/home/presentation/views/home_view.dart';
 import 'package:islamic_app/features/quran_audio/presentation/views/new_quran_adio.dart';
-import 'package:islamic_app/features/quran_audio/presentation/views/quran_audio.dart';
 import 'package:islamic_app/features/settings/presentation/views/settings_view.dart';
 
 class BottomNavBarView extends StatefulWidget {

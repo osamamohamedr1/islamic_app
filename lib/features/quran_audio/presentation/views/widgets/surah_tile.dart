@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:islamic_app/core/themes/colors_manger.dart';
 import 'package:islamic_app/core/utils/assets.dart';
+import 'package:islamic_app/features/quran_audio/data/models/surah_model.dart';
 
 class SurahTile extends StatelessWidget {
-  final dynamic surah;
+  final SurahModel surah;
   final bool isSelected;
   final VoidCallback onTap;
 
@@ -64,6 +65,8 @@ class SurahTile extends StatelessWidget {
           child: isSelected
               ? Image.asset(
                   Assets.imagesVoiceAnimation,
+                  color: ColorsManger.primary,
+                  width: 40,
                   key: const ValueKey('voice_animation'),
                 )
               : Icon(

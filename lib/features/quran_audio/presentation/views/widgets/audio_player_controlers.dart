@@ -39,11 +39,30 @@ class AudioPlayerControls extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-        color: ColorsManger.primary,
+
+        color: Colors.white,
+
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.shade300,
+            blurRadius: 10,
+            offset: const Offset(0, -2),
+          ),
+        ],
       ),
+
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
+          Container(
+            width: 40,
+            height: 4,
+            decoration: BoxDecoration(
+              color: Colors.grey[300],
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ),
+          const SizedBox(height: 8),
           Row(
             children: [
               Expanded(
@@ -51,7 +70,7 @@ class AudioPlayerControls extends StatelessWidget {
                   'سورة ${currentSurahName ?? Hive.box(audioBox).get('surah')}',
                   style: Theme.of(
                     context,
-                  ).textTheme.bodyMedium!.copyWith(color: Colors.white),
+                  ).textTheme.bodyMedium!.copyWith(color: ColorsManger.primary),
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
@@ -62,7 +81,7 @@ class AudioPlayerControls extends StatelessWidget {
                       child: Padding(
                         padding: EdgeInsets.all(20),
                         child: CircularProgressIndicator(
-                          color: Colors.white,
+                          color: ColorsManger.primary,
                           strokeWidth: 3,
                         ),
                       ),
@@ -75,7 +94,7 @@ class AudioPlayerControls extends StatelessWidget {
                         size: 65,
                       ),
                       onPressed: onTogglePlayPause,
-                      color: Colors.white,
+                      color: ColorsManger.primary,
                     ),
               Expanded(
                 child: ReciterDropdown(

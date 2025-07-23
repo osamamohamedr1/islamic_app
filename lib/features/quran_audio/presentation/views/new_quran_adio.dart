@@ -107,7 +107,7 @@ class _NewQuranAudioViewState extends State<NewQuranAudioView>
       if (mounted) {
         ScaffoldMessenger.of(
           context,
-        ).showSnackBar(SnackBar(content: Text("حدث خطأ أثناء تشغيل السورة")));
+        ).showSnackBar(SnackBar(content: Text("تأكد من الانترنت")));
       }
     }
   }

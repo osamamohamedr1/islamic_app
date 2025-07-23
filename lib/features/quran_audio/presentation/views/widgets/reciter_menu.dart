@@ -14,31 +14,35 @@ class ReciterDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DropdownButton<ReciterModel>(
-      value: currentReciter,
-      underline: const SizedBox.shrink(),
-      dropdownColor: ColorsManger.primary,
-      iconEnabledColor: Colors.white,
-      style: Theme.of(
-        context,
-      ).textTheme.bodyMedium!.copyWith(color: Colors.black),
-      isExpanded: true,
-      onChanged: (value) {
-        if (value != null) onChanged(value);
-      },
-      items: reciters
-          .map(
-            (reciter) => DropdownMenuItem<ReciterModel>(
-              value: reciter,
-              child: Text(
-                reciter.nameAr,
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyMedium!.copyWith(color: Colors.white),
+    return Padding(
+      padding: const EdgeInsets.only(right: 12),
+      child: DropdownButton<ReciterModel>(
+        value: currentReciter,
+        underline: const SizedBox.shrink(),
+        dropdownColor: Colors.white,
+        iconEnabledColor: ColorsManger.primary,
+
+        style: Theme.of(
+          context,
+        ).textTheme.bodyMedium!.copyWith(color: Colors.black),
+        isExpanded: true,
+        onChanged: (value) {
+          if (value != null) onChanged(value);
+        },
+        items: reciters
+            .map(
+              (reciter) => DropdownMenuItem<ReciterModel>(
+                value: reciter,
+                child: Text(
+                  reciter.nameAr,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyMedium!.copyWith(color: ColorsManger.primary),
+                ),
               ),
-            ),
-          )
-          .toList(),
+            )
+            .toList(),
+      ),
     );
   }
 }
