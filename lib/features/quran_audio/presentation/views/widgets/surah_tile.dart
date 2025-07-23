@@ -54,7 +54,7 @@ class SurahTile extends StatelessWidget {
         ),
         subtitle: surah.english != null
             ? Text(
-                surah.english!,
+                surah.name!,
                 style: Theme.of(
                   context,
                 ).textTheme.bodySmall?.copyWith(color: Colors.grey[600]),

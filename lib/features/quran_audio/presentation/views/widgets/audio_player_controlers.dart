@@ -67,7 +67,7 @@ class AudioPlayerControls extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  'سورة ${currentSurahName ?? Hive.box(audioBox).get('surah')}',
+                  'سورة ${currentSurahName ?? Hive.box(audioBox).get('surah') ?? 'الفاتحة'}',
                   style: Theme.of(
                     context,
                   ).textTheme.bodyMedium!.copyWith(color: ColorsManger.primary),
