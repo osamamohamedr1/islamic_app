@@ -8,8 +8,8 @@ class PrayersTimeRepo {
   Either<Failure, List<PrayerModel>> getPrayerTimes() {
     try {
       Coordinates coordinates = Coordinates(30.033333, 31.233334);
-      final params = CalculationMethod.karachi.getParameters();
-      params.madhab = Madhab.hanafi;
+      final params = CalculationMethod.egyptian.getParameters();
+      params.madhab = Madhab.shafi;
       final prayerTimes = PrayerTimes.today(coordinates, params);
       final List<PrayerModel> prayerModelsList = [
         PrayerModel(
