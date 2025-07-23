@@ -26,6 +26,14 @@ class Assets {
   /// assets/images/loading_animation.gif
   static const String imagesLoadingAnimation = "assets/images/loading_animation.gif";
 
+  /// Assets for imagesManMarker
+  /// assets/images/man_marker.png
+  static const String imagesManMarker = "assets/images/man_marker.png";
+
+  /// Assets for imagesMasjdMarker
+  /// assets/images/masjd_marker.png
+  static const String imagesMasjdMarker = "assets/images/masjd_marker.png";
+
   /// Assets for imagesSebha
   /// assets/images/Sebha.png
   static const String imagesSebha = "assets/images/Sebha.png";
