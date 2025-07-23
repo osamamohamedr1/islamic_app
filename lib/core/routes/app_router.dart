@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:islamic_app/core/routes/routes.dart';
 import 'package:islamic_app/features/azkar/presentation/views/different_azkar_view.dart';
 import 'package:islamic_app/features/azkar/presentation/views/morning_and_night_azkar_view.dart';
@@ -8,6 +9,7 @@ import 'package:islamic_app/features/bottom_nav_bar.dart/presentation/views/bott
 import 'package:islamic_app/features/azkar/presentation/views/all_doua_view.dart';
 import 'package:islamic_app/features/favorites/presentation/views/favorite_view.dart';
 import 'package:islamic_app/features/home/presentation/views/home_view.dart';
+import 'package:islamic_app/features/quran_audio/presentation/manger/surah_cubit/surah_cubit.dart';
 
 Route onGenerateRoute(RouteSettings settting) {
   switch (settting.name) {
@@ -21,7 +23,10 @@ Route onGenerateRoute(RouteSettings settting) {
     case Routes.bottomNavBar:
       return MaterialPageRoute(
         builder: (context) {
-          return BottomNavBarView();
+          return BlocProvider(
+            create: (context) => SurahCubit()..getSuraList(),
+            child: BottomNavBarView(),
+          );
         },
       );
     case Routes.allDua:

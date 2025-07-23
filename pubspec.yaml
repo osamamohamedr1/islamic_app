@@ -29,6 +29,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   adhan: ^2.0.0+1
+  audio_video_progress_bar: ^2.0.3
   build_runner: ^2.4.15
   cupertino_icons: ^1.0.8
   dartz: ^0.10.1
@@ -48,12 +49,12 @@ dependencies:
   hive_generator: ^2.0.1
   intl: ^0.20.2
   jhijri: ^1.0.0
+  just_audio: ^0.10.4
   persistent_bottom_nav_bar: ^6.2.1
   prayers_times: ^0.0.6
   quran: ^1.3.3
   share_plus: ^11.0.0
   shared_preferences: ^2.5.2
-  just_audio: ^0.10.4
 
 dev_dependencies:
   flutter_lints: ^5.0.0
