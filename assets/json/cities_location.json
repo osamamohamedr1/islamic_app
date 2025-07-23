@@ -1,0 +1,162 @@
+[
+  {
+    "city": "Cairo",
+    "arabic_name": "القاهرة",
+    "latitude": 30.0444,
+    "longitude": 31.2357,
+    "governorate": "Cairo",
+    "population": 9606916
+  },
+  {
+    "city": "Alexandria",
+    "arabic_name": "الإسكندرية",
+    "latitude": 31.2001,
+    "longitude": 29.9187,
+    "governorate": "Alexandria",
+    "population": 5263542
+  },
+  {
+    "city": "Giza",
+    "arabic_name": "الجيزة",
+    "latitude": 30.0131,
+    "longitude": 31.2089,
+    "governorate": "Giza",
+    "population": 8725000
+  },
+  {
+    "city": "Shubra El Kheima",
+    "arabic_name": "شبرا الخيمة",
+    "latitude": 30.1286,
+    "longitude": 31.2422,
+    "governorate": "Qalyubia",
+    "population": 1068497
+  },
+  {
+    "city": "Port Said",
+    "arabic_name": "بورسعيد",
+    "latitude": 31.2653,
+    "longitude": 32.3019,
+    "governorate": "Port Said",
+    "population": 764499
+  },
+  {
+    "city": "Suez",
+    "arabic_name": "السويس",
+    "latitude": 29.9668,
+    "longitude": 32.5498,
+    "governorate": "Suez",
+    "population": 744000
+  },
+  {
+    "city": "Luxor",
+    "arabic_name": "الأقصر",
+    "latitude": 25.6872,
+    "longitude": 32.6396,
+    "governorate": "Luxor",
+    "population": 509491
+  },
+  {
+    "city": "Aswan",
+    "arabic_name": "أسوان",
+    "latitude": 24.0886,
+    "longitude": 32.8998,
+    "governorate": "Aswan",
+    "population": 364582
+  },
+  {
+    "city": "Mansoura",
+    "arabic_name": "المنصورة",
+    "latitude": 31.0364,
+    "longitude": 31.3807,
+    "governorate": "Dakahlia",
+    "population": 960423
+  },
+  {
+    "city": "Zagazig",
+    "arabic_name": "الزقازيق",
+    "latitude": 30.5877,
+    "longitude": 31.502,
+    "governorate": "Sharqia",
+    "population": 319707
+  },
+  {
+    "city": "Fayoum",
+    "arabic_name": "الفيوم",
+    "latitude": 29.3102,
+    "longitude": 30.8418,
+    "governorate": "Faiyum",
+    "population": 349768
+  },
+  {
+    "city": "Beni Suef",
+    "arabic_name": "بني سويف",
+    "latitude": 29.0744,
+    "longitude": 31.0978,
+    "governorate": "Beni Suef",
+    "population": 193048
+  },
+  {
+    "city": "Assiut",
+    "arabic_name": "أسيوط",
+    "latitude": 27.1809,
+    "longitude": 31.1837,
+    "governorate": "Assiut",
+    "population": 389307
+  },
+  {
+    "city": "Ismailia",
+    "arabic_name": "الإسماعيلية",
+    "latitude": 30.5852,
+    "longitude": 32.2654,
+    "governorate": "Ismailia",
+    "population": 429465
+  },
+  {
+    "city": "Damietta",
+    "arabic_name": "دمياط",
+    "latitude": 31.4165,
+    "longitude": 31.8144,
+    "governorate": "Damietta",
+    "population": 206664
+  },
+  {
+    "city": "Kafr El Sheikh",
+    "arabic_name": "كفر الشيخ",
+    "latitude": 31.1113,
+    "longitude": 30.9392,
+    "governorate": "Kafr El Sheikh",
+    "population": 147393
+  },
+  {
+    "city": "Damanhur",
+    "arabic_name": "دمنهور",
+    "latitude": 31.0341,
+    "longitude": 30.4682,
+    "governorate": "Beheira",
+    "population": 244043
+  },
+  {
+    "city": "Minya",
+    "arabic_name": "المنيا",
+    "latitude": 28.1099,
+    "longitude": 30.7503,
+    "governorate": "Minya",
+    "population": 236043
+  },
+  {
+    "city": "Sohag",
+    "arabic_name": "سوهاج",
+    "latitude": 26.5595,
+    "longitude": 31.6956,
+    "governorate": "Sohag",
+    "population": 214429
+  },
+  {
+    "city": "Qena",
+    "arabic_name": "قنا",
+    "latitude": 26.1551,
+    "longitude": 32.716,
+    "governorate": "Qena",
+    "population": 201191
+  }
+]
