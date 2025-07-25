@@ -24,3 +24,9 @@ final class MapError extends MapState {
 
   MapError(this.message);
 }
+
+final class GetNearestMasjd extends MapState {
+  final List<Place> masjds;
+
+  GetNearestMasjd({required this.masjds});
+}

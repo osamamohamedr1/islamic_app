@@ -1,6 +1,4 @@
-// ignore_for_file: unused_field
-
-import 'dart:typed_data';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -44,45 +42,68 @@ class _FindNearestMasjdViewState extends State<FindNearestMasjdView> {
           markers.add(
             Marker(position: state.location, markerId: MarkerId('myLocation')),
           );
+          context.read<MapCubit>().getNearbyPLaces(location: state.location);
         }
 
         if (state is LiveLocationUpdate) {
-          var icon = await BitmapDescriptor.asset(
-            ImageConfiguration(),
-            Assets.imagesMasjdMarker,
-          );
-
           final Uint8List markerIcon = await getBytesFromAsset(
-            Assets.imagesMasjdMarker,
+            Assets.imagesManMarker,
             150,
           );
 
           if (isFristCall) {
-            _controller?.animateCamera(
-              CameraUpdate.newCameraPosition(
-                CameraPosition(target: state.location, zoom: 15),
-              ),
-            );
+            Future.delayed(Duration(milliseconds: 200), () {
+              _controller?.animateCamera(
+                CameraUpdate.newCameraPosition(
+                  CameraPosition(target: state.location, zoom: 17),
+                ),
+              );
+            });
 
             markers.add(
               Marker(
-                icon: BitmapDescriptor.fromBytes(markerIcon),
+                icon: BitmapDescriptor.bytes(markerIcon),
                 position: state.location,
                 markerId: MarkerId('myLiveLocation'),
               ),
             );
+            setState(() {});
             isFristCall = false;
           } else {
             _controller?.animateCamera(CameraUpdate.newLatLng(state.location));
 
             markers.add(
               Marker(
-                icon: BitmapDescriptor.fromBytes(markerIcon),
+                icon: BitmapDescriptor.bytes(markerIcon),
                 position: state.location,
                 markerId: MarkerId('myLiveLocation'),
               ),
             );
+            setState(() {});
           }
+        }
+
+        if (state is GetNearestMasjd) {
+          final Uint8List masjdIcon = await getBytesFromAsset(
+            Assets.imagesMasjdMarker,
+            60,
+          );
+          log(state.masjds[0].displayName?.text ?? '');
+
+          Set<Marker> masjdMarkers = state.masjds.map((masjd) {
+            final id = masjd.displayName?.text ?? "unknown";
+            final lat = masjd.location?.latitude ?? 0.0;
+            final lng = masjd.location?.longitude ?? 0.0;
+
+            return Marker(
+              markerId: MarkerId(id),
+              icon: BitmapDescriptor.bytes(masjdIcon),
+              position: LatLng(lat, lng),
+              infoWindow: InfoWindow(title: id),
+            );
+          }).toSet();
+          markers.addAll(masjdMarkers);
+          setState(() {});
         }
       },
       builder: (context, state) {
@@ -92,7 +113,7 @@ class _FindNearestMasjdViewState extends State<FindNearestMasjdView> {
             onMapCreated: (controller) {
               _controller = controller;
 
-              context.read<MapCubit>().getLiveLocation();
+              context.read<MapCubit>().getLocation();
             },
             zoomControlsEnabled: false,
             markers: markers,
