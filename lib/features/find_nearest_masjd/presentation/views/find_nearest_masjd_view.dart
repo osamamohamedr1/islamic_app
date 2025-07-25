@@ -1,12 +1,12 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:islamic_app/core/functions/marker_resizer_fun.dart';
+import 'package:islamic_app/core/functions/masjd_route_sheet.dart';
 import 'package:islamic_app/core/utils/assets.dart';
 import 'package:islamic_app/features/find_nearest_masjd/presentation/manger/cubit/map_cubit.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-import 'dart:ui' as ui;
 
 class FindNearestMasjdView extends StatefulWidget {
   const FindNearestMasjdView({super.key});
@@ -20,9 +20,8 @@ class _FindNearestMasjdViewState extends State<FindNearestMasjdView> {
   late CameraPosition initialCameraPosition;
   bool isFristCall = true;
   LatLng originLocation = LatLng(0, 0);
+  int polylineId = 0;
 
-  Set<Marker> markers = {};
-  Set<Polyline> polylines = {};
   @override
   void initState() {
     super.initState();
@@ -31,129 +30,127 @@ class _FindNearestMasjdViewState extends State<FindNearestMasjdView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<MapCubit, MapState>(
-      listener: (context, state) async {
-        if (state is LocationLoaded) {
-          _controller?.animateCamera(
-            CameraUpdate.newCameraPosition(
-              CameraPosition(target: state.location, zoom: 17),
-            ),
-          );
+    return Scaffold(
+      body: BlocConsumer<MapCubit, MapState>(
+        listener: (context, state) async {
+          if (state is LocationLoaded) {
+            final Uint8List originalLocationMarker = await getBytesFromAsset(
+              Assets.imagesCurrentLocationMarker,
+              55,
+            );
+            _controller?.animateCamera(
+              CameraUpdate.newCameraPosition(
+                CameraPosition(target: state.location, zoom: 17),
+              ),
+            );
 
-          markers.add(
-            Marker(position: state.location, markerId: MarkerId('myLocation')),
-          );
-          context.read<MapCubit>().getNearbyPLaces(location: state.location);
-          originLocation = state.location;
-        }
+            var myCurrentLocationMarker = Marker(
+              icon: BitmapDescriptor.bytes(originalLocationMarker),
+              position: state.location,
+              markerId: MarkerId('myLocation'),
+            );
 
-        if (state is LiveLocationUpdate) {
-          final Uint8List markerIcon = await getBytesFromAsset(
-            Assets.imagesManMarker,
-            150,
-          );
+            originLocation = state.location;
+            context.read<MapCubit>()
+              ..clearMarkers()
+              ..addMarker(myCurrentLocationMarker)
+              ..getNearbyPLaces(location: state.location);
+          }
 
-          if (isFristCall) {
-            Future.delayed(Duration(milliseconds: 200), () {
+          if (state is LiveLocationUpdate) {
+            final liveMarker = Marker(
+              markerId: const MarkerId('myLiveLocation'),
+              position: state.location,
+            );
+
+            context.read<MapCubit>().replaceMarker(
+              'myLiveLocation',
+              liveMarker,
+            );
+
+            if (isFristCall) {
+              Future.delayed(Duration(milliseconds: 200), () {
+                _controller?.animateCamera(
+                  CameraUpdate.newCameraPosition(
+                    CameraPosition(target: state.location, zoom: 15),
+                  ),
+                );
+              });
+
+              isFristCall = false;
+            } else {
               _controller?.animateCamera(
-                CameraUpdate.newCameraPosition(
-                  CameraPosition(target: state.location, zoom: 17),
-                ),
+                CameraUpdate.newLatLng(state.location),
               );
+            }
+          }
+
+          if (state is GetNearestMasjd) {
+            final masjdIcon = await getBytesFromAsset(
+              Assets.imagesMasjdMarker,
+              48,
+            );
+
+            final masjdMarkers = state.masjds.map((masjd) {
+              final id = masjd.displayName?.text ?? "unknown";
+              final lat = masjd.location?.latitude ?? 0.0;
+              final lng = masjd.location?.longitude ?? 0.0;
+
+              return Marker(
+                markerId: MarkerId(id),
+                position: LatLng(lat, lng),
+                icon: BitmapDescriptor.bytes(masjdIcon),
+                infoWindow: InfoWindow(title: id),
+                onTap: () {
+                  showMasjedRouteSheet(context, id, lat, lng, originLocation);
+                },
+              );
+            }).toSet();
+
+            context.read<MapCubit>().addMarkers(masjdMarkers);
+          }
+
+          if (state is RouteCreated) {
+            context.read<MapCubit>().setPolylines({
+              Polyline(
+                polylineId: const PolylineId('masjdRoute'),
+                points: state.points,
+                color: Colors.black,
+                width: 5,
+              ),
             });
 
-            markers.add(
-              Marker(
-                icon: BitmapDescriptor.bytes(markerIcon),
-                position: state.location,
-                markerId: MarkerId('myLiveLocation'),
-              ),
-            );
-            setState(() {});
-            isFristCall = false;
-          } else {
-            _controller?.animateCamera(CameraUpdate.newLatLng(state.location));
-
-            markers.add(
-              Marker(
-                icon: BitmapDescriptor.bytes(markerIcon),
-                position: state.location,
-                markerId: MarkerId('myLiveLocation'),
-              ),
-            );
-            setState(() {});
+            context.read<MapCubit>().getLiveLocation();
           }
-        }
 
-        if (state is GetNearestMasjd) {
-          final Uint8List masjdIcon = await getBytesFromAsset(
-            Assets.imagesMasjdMarker,
-            50,
-          );
-          log(state.masjds[0].displayName?.text ?? '');
+          if (state is MapError) {
+            ScaffoldMessenger.of(
+              // ignore: use_build_context_synchronously
+              context,
+            ).showSnackBar(SnackBar(content: Text(state.message)));
+          }
+        },
+        builder: (context, state) {
+          final mapCubit = context.read<MapCubit>();
+          return ModalProgressHUD(
+            inAsyncCall:
+                state is MapLoacationLoading ||
+                state is FindNearestMasjdLoading ||
+                state is CreateRouteLoading,
+            child: GoogleMap(
+              onMapCreated: (controller) {
+                _controller = controller;
 
-          Set<Marker> masjdMarkers = state.masjds.map((masjd) {
-            final id = masjd.displayName?.text ?? "unknown";
-            final lat = masjd.location?.latitude ?? 0.0;
-            final lng = masjd.location?.longitude ?? 0.0;
-
-            return Marker(
-              onTap: () {
-                context.read<MapCubit>().createRoute(
-                  originLocation: originLocation,
-                  destination: LatLng(lat, lng),
-                );
+                context.read<MapCubit>().getLocation();
               },
-              markerId: MarkerId(id),
-              icon: BitmapDescriptor.bytes(masjdIcon),
-              position: LatLng(lat, lng),
-              infoWindow: InfoWindow(title: id),
-            );
-          }).toSet();
-          markers.addAll(masjdMarkers);
-          setState(() {});
-        }
-
-        if (state is RouteCreated) {
-          polylines.add(
-            Polyline(
-              polylineId: PolylineId('routes'),
-              points: state.points,
-              color: Colors.black,
-              width: 5,
+              zoomControlsEnabled: false,
+              markers: mapCubit.markers,
+              polylines: mapCubit.polylines,
+              initialCameraPosition: initialCameraPosition,
             ),
           );
-          setState(() {});
-        }
-      },
-      builder: (context, state) {
-        return ModalProgressHUD(
-          inAsyncCall: state is MapLoacationLoading,
-          child: GoogleMap(
-            onMapCreated: (controller) {
-              _controller = controller;
-
-              context.read<MapCubit>().getLocation();
-            },
-            zoomControlsEnabled: false,
-            markers: markers,
-            polylines: polylines,
-            initialCameraPosition: initialCameraPosition,
-          ),
-        );
-      },
+        },
+      ),
     );
   }
-}
-
-Future<Uint8List> getBytesFromAsset(String path, int width) async {
-  ByteData data = await rootBundle.load(path);
-  ui.Codec codec = await ui.instantiateImageCodec(
-    data.buffer.asUint8List(),
-    targetWidth: width,
-  );
-  ui.FrameInfo fi = await codec.getNextFrame();
-  return (await fi.image.toByteData(
-    format: ui.ImageByteFormat.png,
-  ))!.buffer.asUint8List();
 }

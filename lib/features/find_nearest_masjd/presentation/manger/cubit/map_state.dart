@@ -7,6 +7,14 @@ final class MapInitial extends MapState {}
 
 final class MapLoacationLoading extends MapState {}
 
+final class FindNearestMasjdLoading extends MapState {}
+
+final class CreateRouteLoading extends MapState {}
+
+final class MarkerUpdated extends MapState {}
+
+final class PolylineUpdated extends MapState {}
+
 final class LocationLoaded extends MapState {
   final LatLng location;
 

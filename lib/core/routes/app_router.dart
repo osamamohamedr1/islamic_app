@@ -8,8 +8,6 @@ import 'package:islamic_app/features/azkar/presentation/views/widgets/azkar_diff
 import 'package:islamic_app/features/bottom_nav_bar.dart/presentation/views/bottom_nav_bar_view.dart';
 import 'package:islamic_app/features/azkar/presentation/views/all_doua_view.dart';
 import 'package:islamic_app/features/favorites/presentation/views/favorite_view.dart';
-import 'package:islamic_app/features/find_nearest_masjd/data/repos/google_map_repo.dart';
-import 'package:islamic_app/features/find_nearest_masjd/presentation/manger/cubit/map_cubit.dart';
 import 'package:islamic_app/features/find_nearest_masjd/presentation/views/find_nearest_masjd_view.dart';
 import 'package:islamic_app/features/home/presentation/views/home_view.dart';
 import 'package:islamic_app/features/quran_audio/presentation/manger/surah_cubit/surah_cubit.dart';
@@ -71,10 +69,7 @@ Route onGenerateRoute(RouteSettings settting) {
     case Routes.nearestMasjd:
       return MaterialPageRoute(
         builder: (context) {
-          return BlocProvider(
-            create: (context) => MapCubit(MapRepository()),
-            child: FindNearestMasjdView(),
-          );
+          return FindNearestMasjdView();
         },
       );
 

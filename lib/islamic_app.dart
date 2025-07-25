@@ -11,6 +11,8 @@ import 'package:islamic_app/features/bottom_nav_bar.dart/presentation/manger/the
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:islamic_app/features/favorites/data/repos/favorite_repo.dart';
 import 'package:islamic_app/features/favorites/presentation/manger/cubit/favorite_cubit.dart';
+import 'package:islamic_app/features/find_nearest_masjd/data/repos/google_map_repo.dart';
+import 'package:islamic_app/features/find_nearest_masjd/presentation/manger/cubit/map_cubit.dart';
 
 class IslamicApp extends StatelessWidget {
   const IslamicApp({super.key});
@@ -26,6 +28,7 @@ class IslamicApp extends StatelessWidget {
         BlocProvider(
           create: (context) => FavoriteCubit(getIt.get<FavoriteRepo>()),
         ),
+        BlocProvider(create: (context) => MapCubit(getIt.get<MapRepository>())),
       ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, themeState) {

@@ -9,7 +9,6 @@ import 'package:islamic_app/features/find_nearest_masjd/data/models/mosque_model
 import 'package:islamic_app/features/find_nearest_masjd/data/models/route_model/route_model.dart';
 import 'package:location/location.dart';
 import 'package:http/http.dart' as http;
-import 'package:http_parser/http_parser.dart';
 
 class MapRepository {
   final Location _location = Location();
@@ -75,7 +74,6 @@ class MapRepository {
         'Content-Type': 'application/json',
         'X-Goog-Api-Key': mapKey,
         'X-Goog-FieldMask': 'places.displayName,places.location,places.rating',
-        'Accept-Language': 'ar',
       };
       var result = await http.post(
         Uri.parse('https://places.googleapis.com/v1/places:searchNearby'),
@@ -141,7 +139,6 @@ class MapRepository {
         'X-Goog-Api-Key': mapKey,
         'X-Goog-FieldMask':
             'routes.duration,routes.distanceMeters,routes.polyline.encodedPolyline',
-        'Accept-Language': 'ar',
       };
       var result = await http.post(
         Uri.parse('https://routes.googleapis.com/directions/v2:computeRoutes'),
@@ -155,7 +152,7 @@ class MapRepository {
         final data = jsonDecode(result.body);
 
         RouteModel route = RouteModel.fromJson(data);
-        log(route.routes![0].polyline?.encodedPolyline ?? "");
+
         return right(
           decodeRoute(route.routes?[0].polyline?.encodedPolyline ?? ''),
         );
@@ -165,8 +162,6 @@ class MapRepository {
         );
       }
     } catch (e) {
-      log(e.toString());
-      log('message');
       return Left(Failure(errorMessage: e.toString()));
     }
   }
