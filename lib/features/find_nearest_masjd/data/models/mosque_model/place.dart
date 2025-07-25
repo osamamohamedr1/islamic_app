@@ -3,7 +3,7 @@ import 'location.dart';
 
 class Place {
   Location? location;
-  int? rating;
+  num? rating;
   DisplayName? displayName;
 
   Place({this.location, this.rating, this.displayName});
@@ -12,7 +12,7 @@ class Place {
     location: json['location'] == null
         ? null
         : Location.fromJson(json['location'] as Map<String, dynamic>),
-    rating: json['rating'] as int?,
+    rating: json['rating'] as num?,
     displayName: json['displayName'] == null
         ? null
         : DisplayName.fromJson(json['displayName'] as Map<String, dynamic>),

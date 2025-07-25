@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,8 +19,10 @@ class _FindNearestMasjdViewState extends State<FindNearestMasjdView> {
   GoogleMapController? _controller;
   late CameraPosition initialCameraPosition;
   bool isFristCall = true;
+  LatLng originLocation = LatLng(0, 0);
 
   Set<Marker> markers = {};
+  Set<Polyline> polylines = {};
   @override
   void initState() {
     super.initState();
@@ -32,7 +33,7 @@ class _FindNearestMasjdViewState extends State<FindNearestMasjdView> {
   Widget build(BuildContext context) {
     return BlocConsumer<MapCubit, MapState>(
       listener: (context, state) async {
-        if (state is MapLocationLoaded) {
+        if (state is LocationLoaded) {
           _controller?.animateCamera(
             CameraUpdate.newCameraPosition(
               CameraPosition(target: state.location, zoom: 17),
@@ -43,6 +44,7 @@ class _FindNearestMasjdViewState extends State<FindNearestMasjdView> {
             Marker(position: state.location, markerId: MarkerId('myLocation')),
           );
           context.read<MapCubit>().getNearbyPLaces(location: state.location);
+          originLocation = state.location;
         }
 
         if (state is LiveLocationUpdate) {
@@ -86,7 +88,7 @@ class _FindNearestMasjdViewState extends State<FindNearestMasjdView> {
         if (state is GetNearestMasjd) {
           final Uint8List masjdIcon = await getBytesFromAsset(
             Assets.imagesMasjdMarker,
-            60,
+            50,
           );
           log(state.masjds[0].displayName?.text ?? '');
 
@@ -96,6 +98,12 @@ class _FindNearestMasjdViewState extends State<FindNearestMasjdView> {
             final lng = masjd.location?.longitude ?? 0.0;
 
             return Marker(
+              onTap: () {
+                context.read<MapCubit>().createRoute(
+                  originLocation: originLocation,
+                  destination: LatLng(lat, lng),
+                );
+              },
               markerId: MarkerId(id),
               icon: BitmapDescriptor.bytes(masjdIcon),
               position: LatLng(lat, lng),
@@ -103,6 +111,18 @@ class _FindNearestMasjdViewState extends State<FindNearestMasjdView> {
             );
           }).toSet();
           markers.addAll(masjdMarkers);
+          setState(() {});
+        }
+
+        if (state is RouteCreated) {
+          polylines.add(
+            Polyline(
+              polylineId: PolylineId('routes'),
+              points: state.points,
+              color: Colors.black,
+              width: 5,
+            ),
+          );
           setState(() {});
         }
       },
@@ -117,6 +137,7 @@ class _FindNearestMasjdViewState extends State<FindNearestMasjdView> {
             },
             zoomControlsEnabled: false,
             markers: markers,
+            polylines: polylines,
             initialCameraPosition: initialCameraPosition,
           ),
         );

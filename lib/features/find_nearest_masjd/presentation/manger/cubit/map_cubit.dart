@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:islamic_app/features/find_nearest_masjd/data/models/mosque_model/place.dart';
@@ -21,9 +20,7 @@ class MapCubit extends Cubit<MapState> {
         emit(MapError(failure.errorMessage));
       },
       (location) {
-        emit(
-          MapLocationLoaded(LatLng(location.latitude!, location.longitude!)),
-        );
+        emit(LocationLoaded(LatLng(location.latitude!, location.longitude!)));
       },
     );
   }
@@ -56,6 +53,26 @@ class MapCubit extends Cubit<MapState> {
       },
       (masjds) {
         emit(GetNearestMasjd(masjds: masjds));
+      },
+    );
+  }
+
+  Future<void> createRoute({
+    required LatLng originLocation,
+    required LatLng destination,
+  }) async {
+    var result = await mapRepository.getRoute(
+      originLocation: originLocation,
+      destination: destination,
+    );
+
+    result.fold(
+      (failure) {
+        log(failure.errorMessage);
+        emit(MapError(failure.errorMessage));
+      },
+      (points) {
+        emit(RouteCreated(points: points));
       },
     );
   }

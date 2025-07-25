@@ -7,10 +7,10 @@ final class MapInitial extends MapState {}
 
 final class MapLoacationLoading extends MapState {}
 
-final class MapLocationLoaded extends MapState {
+final class LocationLoaded extends MapState {
   final LatLng location;
 
-  MapLocationLoaded(this.location);
+  LocationLoaded(this.location);
 }
 
 final class LiveLocationUpdate extends MapState {
@@ -29,4 +29,10 @@ final class GetNearestMasjd extends MapState {
   final List<Place> masjds;
 
   GetNearestMasjd({required this.masjds});
+}
+
+final class RouteCreated extends MapState {
+  final List<LatLng> points;
+
+  RouteCreated({required this.points});
 }
