@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:islamic_app/core/functions/get_lat_lang_bounds.dart';
 import 'package:islamic_app/core/functions/marker_resizer_fun.dart';
 import 'package:islamic_app/core/functions/masjd_route_sheet.dart';
+import 'package:islamic_app/core/themes/colors_manger.dart';
 import 'package:islamic_app/core/utils/assets.dart';
 import 'package:islamic_app/features/find_nearest_masjd/presentation/manger/cubit/map_cubit.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
@@ -68,21 +70,11 @@ class _FindNearestMasjdViewState extends State<FindNearestMasjdView> {
               liveMarker,
             );
 
-            if (isFristCall) {
-              Future.delayed(Duration(milliseconds: 200), () {
-                _controller?.animateCamera(
-                  CameraUpdate.newCameraPosition(
-                    CameraPosition(target: state.location, zoom: 15),
-                  ),
-                );
-              });
-
-              isFristCall = false;
-            } else {
-              _controller?.animateCamera(
-                CameraUpdate.newLatLng(state.location),
-              );
-            }
+            _controller?.animateCamera(
+              CameraUpdate.newLatLng(
+                LatLng(state.location.latitude, state.location.longitude),
+              ),
+            );
           }
 
           if (state is GetNearestMasjd) {
@@ -119,6 +111,9 @@ class _FindNearestMasjdViewState extends State<FindNearestMasjdView> {
                 width: 5,
               ),
             });
+            _controller?.animateCamera(
+              CameraUpdate.newLatLngBounds(getLatLangBounds(state.points), 40),
+            );
 
             context.read<MapCubit>().getLiveLocation();
           }
@@ -137,16 +132,43 @@ class _FindNearestMasjdViewState extends State<FindNearestMasjdView> {
                 state is MapLoacationLoading ||
                 state is FindNearestMasjdLoading ||
                 state is CreateRouteLoading,
-            child: GoogleMap(
-              onMapCreated: (controller) {
-                _controller = controller;
+            child: Stack(
+              children: [
+                GoogleMap(
+                  onMapCreated: (controller) {
+                    _controller = controller;
 
-                context.read<MapCubit>().getLocation();
-              },
-              zoomControlsEnabled: false,
-              markers: mapCubit.markers,
-              polylines: mapCubit.polylines,
-              initialCameraPosition: initialCameraPosition,
+                    context.read<MapCubit>().getLocation();
+                  },
+                  zoomControlsEnabled: false,
+                  markers: mapCubit.markers,
+                  polylines: mapCubit.polylines,
+                  initialCameraPosition: initialCameraPosition,
+                ),
+
+                Positioned(
+                  top: 50,
+                  right: 20,
+                  child: CircleAvatar(
+                    backgroundColor: ColorsManger.darkBLue,
+                    radius: 25,
+                    child: IconButton(
+                      tooltip: 'أقرب مسجد',
+                      onPressed: () {
+                        final cubit = context.read<MapCubit>();
+
+                        cubit
+                          ..cancelLiveLocationUpdates()
+                          ..getLocation()
+                          ..clearMarkers()
+                          ..clearPolylines();
+                      },
+
+                      icon: Icon(Icons.mosque, size: 30),
+                    ),
+                  ),
+                ),
+              ],
             ),
           );
         },

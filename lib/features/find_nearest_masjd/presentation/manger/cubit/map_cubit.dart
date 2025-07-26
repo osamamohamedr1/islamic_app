@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:islamic_app/features/find_nearest_masjd/data/models/mosque_model/place.dart';
 import 'package:islamic_app/features/find_nearest_masjd/data/repos/google_map_repo.dart';
+import 'package:location/location.dart';
 import 'package:meta/meta.dart';
 
 part 'map_state.dart';
@@ -11,6 +12,7 @@ part 'map_state.dart';
 class MapCubit extends Cubit<MapState> {
   MapCubit(this.mapRepository) : super(MapInitial());
   final MapRepository mapRepository;
+  StreamSubscription<LocationData>? _liveLocationSubscription;
 
   final Set<Marker> _markers = {};
   final Set<Polyline> _polylines = {};
@@ -19,7 +21,7 @@ class MapCubit extends Cubit<MapState> {
   Set<Polyline> get polylines => _polylines;
 
   void clearMarkers() => _markers.clear();
-
+  void clearPolylines() => _polylines.clear();
   void addMarker(Marker marker) {
     _markers.add(marker);
     emit(MarkerUpdated());
@@ -59,19 +61,26 @@ class MapCubit extends Cubit<MapState> {
   Future<void> getLiveLocation() async {
     emit(MapLoacationLoading());
 
-    var liveLocation = await mapRepository.getLiveLocation();
-    liveLocation.fold(
+    var liveLocationResult = await mapRepository.getLiveLocation();
+    liveLocationResult.fold(
       (failure) {
         emit(MapError(failure.errorMessage));
       },
-      (liveLocation) {
-        liveLocation.listen((location) {
+      (liveLocationStream) {
+        _liveLocationSubscription?.cancel(); // Cancel old one if active
+
+        _liveLocationSubscription = liveLocationStream.listen((location) {
           emit(
             LiveLocationUpdate(LatLng(location.latitude!, location.longitude!)),
           );
         });
       },
     );
+  }
+
+  void cancelLiveLocationUpdates() {
+    _liveLocationSubscription?.cancel();
+    _liveLocationSubscription = null;
   }
 
   Future<void> getNearbyPLaces({required LatLng location}) async {
