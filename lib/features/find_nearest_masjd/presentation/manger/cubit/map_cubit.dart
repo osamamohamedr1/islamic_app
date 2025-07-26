@@ -67,7 +67,7 @@ class MapCubit extends Cubit<MapState> {
         emit(MapError(failure.errorMessage));
       },
       (liveLocationStream) {
-        _liveLocationSubscription?.cancel(); // Cancel old one if active
+        _liveLocationSubscription?.cancel();
 
         _liveLocationSubscription = liveLocationStream.listen((location) {
           emit(
@@ -101,11 +101,13 @@ class MapCubit extends Cubit<MapState> {
   Future<void> createRoute({
     required LatLng originLocation,
     required LatLng destination,
+    String? mode,
   }) async {
     emit(CreateRouteLoading());
-    var result = await mapRepository.getRoute(
+    var result = await mapRepository.createRoute(
       originLocation: originLocation,
       destination: destination,
+      mode: mode,
     );
 
     result.fold(

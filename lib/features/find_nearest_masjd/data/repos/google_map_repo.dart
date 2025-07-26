@@ -101,9 +101,10 @@ class MapRepository {
     }
   }
 
-  Future<Either<Failure, List<LatLng>>> getRoute({
+  Future<Either<Failure, List<LatLng>>> createRoute({
     required LatLng originLocation,
     required LatLng destination,
+    String? mode,
   }) async {
     try {
       final requestData = {
@@ -123,7 +124,7 @@ class MapRepository {
             },
           },
         },
-        "travelMode": "DRIVE",
+        "travelMode": mode ?? "DRIVE",
         "routingPreference": "TRAFFIC_AWARE",
         "computeAlternativeRoutes": false,
         "routeModifiers": {

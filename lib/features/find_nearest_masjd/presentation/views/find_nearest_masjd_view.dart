@@ -114,8 +114,6 @@ class _FindNearestMasjdViewState extends State<FindNearestMasjdView> {
             _controller?.animateCamera(
               CameraUpdate.newLatLngBounds(getLatLangBounds(state.points), 40),
             );
-
-            context.read<MapCubit>().getLiveLocation();
           }
 
           if (state is MapError) {
@@ -165,6 +163,23 @@ class _FindNearestMasjdViewState extends State<FindNearestMasjdView> {
                       },
 
                       icon: Icon(Icons.mosque, size: 30),
+                    ),
+                  ),
+                ),
+
+                Positioned(
+                  top: 110,
+                  right: 20,
+                  child: CircleAvatar(
+                    backgroundColor: ColorsManger.darkBLue,
+                    radius: 25,
+                    child: IconButton(
+                      tooltip: 'تتبع السير',
+                      onPressed: () {
+                        context.read<MapCubit>().getLiveLocation();
+                      },
+
+                      icon: Icon(Icons.assistant_navigation, size: 30),
                     ),
                   ),
                 ),
