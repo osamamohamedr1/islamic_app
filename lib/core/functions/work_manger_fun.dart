@@ -1,5 +1,5 @@
 import 'package:islamic_app/core/functions/notifications_service.dart';
-import 'package:islamic_app/features/notifications/data/repos/prayer_notification_service.dart';
+import 'package:islamic_app/features/prayer_notifications/data/repos/prayer_notification_service.dart';
 import 'package:workmanager/workmanager.dart';
 
 void callbackDispatcher() {

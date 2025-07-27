@@ -7,9 +7,10 @@ import 'package:islamic_app/core/functions/work_manger_fun.dart';
 import 'package:islamic_app/core/models/azkar_model/array.dart';
 import 'package:islamic_app/core/models/azkar_model/azkar_model.dart';
 import 'package:islamic_app/core/utils/bloc_observer.dart';
+import 'package:islamic_app/core/utils/cache_helper.dart';
 import 'package:islamic_app/core/utils/consts.dart';
 import 'package:islamic_app/core/utils/dependency_injection.dart';
-import 'package:islamic_app/features/notifications/data/repos/prayer_notification_service.dart';
+import 'package:islamic_app/features/prayer_notifications/data/repos/prayer_notification_service.dart';
 import 'package:islamic_app/islamic_app.dart';
 import 'package:workmanager/workmanager.dart';
 
@@ -17,6 +18,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
   Bloc.observer = MyBlocObserver();
+  await CacheHelper.initSharedPrefCaching();
   await NotificationService.initialize();
   await PrayerNotificationService.scheduleDailyPrayerNotifications();
   await Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
@@ -34,4 +36,5 @@ Future<void> intitHiveBoxs() async {
   await Hive.openBox<AzkarModel>(differerntAzkarBox);
   await Hive.openBox(themeBox);
   await Hive.openBox(audioBox);
+  await Hive.openBox(userLocationBox);
 }

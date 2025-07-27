@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:islamic_app/core/routes/app_router.dart';
 import 'package:islamic_app/core/routes/routes.dart';
 import 'package:islamic_app/core/themes/app_themes.dart';
+import 'package:islamic_app/core/utils/cache_helper.dart';
+import 'package:islamic_app/core/utils/consts.dart';
 import 'package:islamic_app/core/utils/dependency_injection.dart';
 import 'package:islamic_app/features/azkar/data/repos/azkar_repo.dart';
 import 'package:islamic_app/features/azkar/presentation/manger/cubit/azkar_cubit_cubit.dart';
@@ -53,7 +55,9 @@ class IslamicApp extends StatelessWidget {
                   themeMode: themeState,
                   darkTheme: AppThemes.darkTheme,
                   theme: AppThemes.lightTheme,
-                  initialRoute: Routes.bottomNavBar,
+                  initialRoute: CacheHelper.getData(key: locationName) == null
+                      ? Routes.chooseLocation
+                      : Routes.bottomNavBar,
                   onGenerateRoute: onGenerateRoute,
                   builder: (context, child) {
                     return Directionality(
