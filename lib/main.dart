@@ -12,11 +12,17 @@ import 'package:islamic_app/core/utils/consts.dart';
 import 'package:islamic_app/core/utils/dependency_injection.dart';
 import 'package:islamic_app/features/prayer_notifications/data/repos/prayer_notification_service.dart';
 import 'package:islamic_app/islamic_app.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:workmanager/workmanager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await ScreenUtil.ensureScreenSize();
+  await JustAudioBackground.init(
+    androidNotificationChannelId: 'com.ryanheise.bg_demo.channel.audio',
+    androidNotificationChannelName: 'Audio playback',
+    androidNotificationOngoing: true,
+  );
   Bloc.observer = MyBlocObserver();
   await CacheHelper.initSharedPrefCaching();
   await NotificationService.initialize();

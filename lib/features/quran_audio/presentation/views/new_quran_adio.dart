@@ -11,6 +11,7 @@ import 'package:islamic_app/core/themes/colors_manger.dart';
 import 'package:islamic_app/core/utils/consts.dart';
 import 'package:islamic_app/features/quran_audio/data/models/reciter_model.dart';
 import 'package:islamic_app/features/quran_audio/presentation/views/widgets/audio_player_controlers.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 
 class NewQuranAudioView extends StatefulWidget {
   const NewQuranAudioView({super.key});
@@ -108,7 +109,18 @@ class _NewQuranAudioViewState extends State<NewQuranAudioView>
         isPlaying = true;
       });
 
-      await _player.setUrl(url);
+      await _player.setAudioSource(
+        AudioSource.uri(
+          Uri.parse(url),
+          tag: MediaItem(
+            id: name,
+
+            album: " قرأن",
+            title: name,
+            artUri: Uri.parse('https://example.com/albumart.jpg'),
+          ),
+        ),
+      );
       await _player.play();
     } on PlayerException catch (e) {
       log("PlayerException: ${e.message}");
@@ -132,7 +144,18 @@ class _NewQuranAudioViewState extends State<NewQuranAudioView>
           final savedUrl = audio.get('url');
           final savedSurah = audio.get('surah');
           if (savedUrl != null && savedSurah != null) {
-            await _player.setUrl(savedUrl);
+            await _player.setAudioSource(
+              AudioSource.uri(
+                Uri.parse(savedUrl),
+                tag: MediaItem(
+                  id: savedSurah,
+
+                  album: " قرأن",
+                  title: savedSurah,
+                  artUri: Uri.parse('https://example.com/albumart.jpg'),
+                ),
+              ),
+            );
             setState(() {
               currentSurahName = savedSurah;
               isPlaying = true;
