@@ -203,17 +203,20 @@ class _NewQuranAudioViewState extends State<NewQuranAudioView>
                     ),
                     itemBuilder: (context, index) {
                       final surah = textEditingController.text.isEmpty
-                          ? allSurahList[index]
-                          : searchedForSurah[index];
+                          ? allSurahList
+                          : searchedForSurah;
+
                       return Padding(
                         padding: EdgeInsets.only(
                           bottom: index == state.surahList.length - 1 ? 200 : 0,
                         ),
                         child: SurahTile(
-                          surah: surah,
-                          isSelected: surah.arabic == currentSurahName,
-                          onTap: () =>
-                              _playSurah(surah.id ?? 1, surah.arabic ?? ''),
+                          surah: surah[index],
+                          isSelected: surah[index].arabic == currentSurahName,
+                          onTap: () => _playSurah(
+                            surah[index].id ?? 1,
+                            surah[index].arabic ?? '',
+                          ),
                         ),
                       );
                     },
@@ -323,7 +326,7 @@ class _NewQuranAudioViewState extends State<NewQuranAudioView>
 
   void addSearchedSurahForSearchedList(String searchedChar) {
     searchedForSurah = allSurahList
-        .where((char) => char.arabic!.startsWith(searchedChar))
+        .where((char) => char.arabic!.contains(searchedChar))
         .toList();
 
     setState(() {});
