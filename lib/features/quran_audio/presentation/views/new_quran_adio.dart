@@ -1,12 +1,16 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:islamic_app/core/utils/assets.dart';
+import 'package:islamic_app/features/quran_audio/data/models/surah_model.dart';
+import 'package:islamic_app/features/quran_audio/presentation/manger/surah_cubit/surah_cubit.dart';
+import 'package:islamic_app/features/quran_audio/presentation/views/widgets/surah_tile.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:islamic_app/core/themes/colors_manger.dart';
 import 'package:islamic_app/core/utils/consts.dart';
 import 'package:islamic_app/features/quran_audio/data/models/reciter_model.dart';
 import 'package:islamic_app/features/quran_audio/presentation/views/widgets/audio_player_controlers.dart';
-import 'package:islamic_app/features/quran_audio/presentation/views/widgets/surah_list_widget.dart';
 
 class NewQuranAudioView extends StatefulWidget {
   const NewQuranAudioView({super.key});
@@ -28,6 +32,10 @@ class _NewQuranAudioViewState extends State<NewQuranAudioView>
   Duration? _duration;
 
   final audio = Hive.box(audioBox);
+  List<SurahModel> allSurahList = [];
+  List<SurahModel> searchedForSurah = [];
+  bool isSearching = false;
+  final TextEditingController textEditingController = TextEditingController();
 
   @override
   void initState() {
@@ -159,28 +167,61 @@ class _NewQuranAudioViewState extends State<NewQuranAudioView>
   Widget build(BuildContext context) {
     super.build(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        scrolledUnderElevation: 0,
+        scrolledUnderElevation: .6,
+        elevation: .6,
+        automaticallyImplyLeading: false,
         iconTheme: IconThemeData(color: Theme.of(context).colorScheme.primary),
-        title: Text(
-          'القرآن الكريم',
-          style: Theme.of(context).textTheme.titleSmall!.copyWith(
-            color: Theme.of(context).colorScheme.primary,
-          ),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Icons.search, color: ColorsManger.primary),
-          ),
-        ],
+        leading: isSearching ? BackButton() : null,
+        title: isSearching
+            ? buildTextField()
+            : Text(
+                'القرآن الكريم',
+                style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+              ),
+        actions: buildAppBarActions(),
       ),
       body: Stack(
         children: [
           Positioned.fill(
-            child: SurahListWidget(
-              currentSurahName: currentSurahName,
-              onSurahTap: _playSurah,
+            child: BlocBuilder<SurahCubit, SurahState>(
+              builder: (context, state) {
+                if (state is SurahLoaded) {
+                  allSurahList = state.surahList;
+                  return ListView.separated(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    itemCount: textEditingController.text.isEmpty
+                        ? allSurahList.length
+                        : searchedForSurah.length,
+                    separatorBuilder: (_, __) => Divider(
+                      color: ColorsManger.grey,
+                      height: 0,
+                      thickness: .2,
+                    ),
+                    itemBuilder: (context, index) {
+                      final surah = textEditingController.text.isEmpty
+                          ? allSurahList[index]
+                          : searchedForSurah[index];
+                      return Padding(
+                        padding: EdgeInsets.only(
+                          bottom: index == state.surahList.length - 1 ? 200 : 0,
+                        ),
+                        child: SurahTile(
+                          surah: surah,
+                          isSelected: surah.arabic == currentSurahName,
+                          onTap: () =>
+                              _playSurah(surah.id ?? 1, surah.arabic ?? ''),
+                        ),
+                      );
+                    },
+                  );
+                } else {
+                  return Image.asset(Assets.imagesLoadingAnimation);
+                }
+              },
             ),
           ),
           Positioned(
@@ -223,5 +264,68 @@ class _NewQuranAudioViewState extends State<NewQuranAudioView>
         context,
       ).showSnackBar(SnackBar(content: Text(message)));
     }
+  }
+
+  Widget buildTextField() {
+    return TextField(
+      controller: textEditingController,
+
+      decoration: InputDecoration(
+        hintText: 'اسم السورة',
+        border: InputBorder.none,
+        hintStyle: Theme.of(context).textTheme.bodySmall,
+      ),
+      onChanged: (searchedChar) {
+        addSearchedSurahForSearchedList(searchedChar);
+      },
+    );
+  }
+
+  List<Widget> buildAppBarActions() {
+    if (isSearching) {
+      return [
+        IconButton(
+          onPressed: () {
+            textEditingController.clear();
+            searchedForSurah.clear();
+            setState(() {
+              isSearching = false;
+            });
+          },
+          icon: Icon(Icons.clear),
+        ),
+      ];
+    } else {
+      return [
+        IconButton(
+          onPressed: () {
+            ModalRoute.of(context)?.addLocalHistoryEntry(
+              LocalHistoryEntry(
+                onRemove: () {
+                  //stop search
+                  textEditingController.clear();
+                  searchedForSurah.clear();
+                  setState(() {
+                    isSearching = false;
+                  });
+                },
+              ),
+            );
+            setState(() {
+              isSearching = true;
+            });
+          },
+          icon: Icon(Icons.search),
+        ),
+      ];
+    }
+  }
+
+  void addSearchedSurahForSearchedList(String searchedChar) {
+    searchedForSurah = allSurahList
+        .where((char) => char.arabic!.startsWith(searchedChar))
+        .toList();
+
+    setState(() {});
   }
 }
