@@ -53,7 +53,7 @@ class IslamicApp extends StatelessWidget {
                   themeMode: themeState,
                   darkTheme: AppThemes.darkTheme,
                   theme: AppThemes.lightTheme,
-                  initialRoute: Routes.nearestMasjd,
+                  initialRoute: Routes.bottomNavBar,
                   onGenerateRoute: onGenerateRoute,
                   builder: (context, child) {
                     return Directionality(

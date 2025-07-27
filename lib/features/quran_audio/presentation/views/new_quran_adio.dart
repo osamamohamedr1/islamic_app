@@ -102,13 +102,15 @@ class _NewQuranAudioViewState extends State<NewQuranAudioView>
 
       await _player.setUrl(url);
       await _player.play();
+    } on PlayerException catch (e) {
+      log("PlayerException: ${e.message}");
+      _showErrorSnack("حدث خطأ أثناء تحميل الملف الصوتي");
+    } on PlayerInterruptedException catch (e) {
+      log("PlayerInterruptedException: ${e.message}");
+      _showErrorSnack("تم مقاطعة تشغيل الصوت");
     } catch (e) {
-      log("Error: $e");
-      if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text("تأكد من الانترنت")));
-      }
+      log("Unknown error: $e");
+      _showErrorSnack("تأكد من اتصال الإنترنت أو أعد المحاولة لاحقًا");
     }
   }
 
@@ -135,13 +137,15 @@ class _NewQuranAudioViewState extends State<NewQuranAudioView>
         await _player.play();
         setState(() => isPlaying = true);
       }
+    } on PlayerException catch (e) {
+      log("PlayerException: ${e.message}");
+      _showErrorSnack("لا يمكن تشغيل السورة");
+    } on PlayerInterruptedException catch (e) {
+      log("Interrupted: ${e.message}");
+      _showErrorSnack("تم إيقاف التشغيل مؤقتًا");
     } catch (e) {
-      log("Toggle error: $e");
-      if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text("حدث خطأ أثناء تشغيل السورة")));
-      }
+      log("Unknown toggle error: $e");
+      _showErrorSnack("حدث خطأ أثناء تشغيل السورة");
     }
   }
 
@@ -212,4 +216,12 @@ class _NewQuranAudioViewState extends State<NewQuranAudioView>
 
   @override
   bool get wantKeepAlive => true;
+
+  void _showErrorSnack(String message) {
+    if (mounted) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(message)));
+    }
+  }
 }

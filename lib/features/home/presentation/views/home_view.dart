@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:islamic_app/core/functions/notifications_service.dart';
 import 'package:islamic_app/features/home/data/repos/prayers_time_repo.dart';
 import 'package:islamic_app/features/home/presentation/manger/prayer_time_cubit/prayers_time_cubit.dart';
 import 'package:islamic_app/features/home/presentation/views/widgets/all_custom_container.dart';
@@ -77,19 +78,30 @@ class HomeView extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'المكان',
-              style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            Text(
-              'القاهرة',
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-              ),
+            // Text(
+            //   'المكان',
+            //   style: Theme.of(context).textTheme.bodySmall!.copyWith(
+            //     fontSize: 16,
+            //     fontWeight: FontWeight.w500,
+            //   ),
+            // ),
+            // Text(
+            //   'القاهرة',
+            //   style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+            //     fontSize: 16,
+            //     fontWeight: FontWeight.w500,
+            //   ),
+            // ),
+            IconButton(
+              onPressed: () {
+                NotificationService.showNotification(
+                  id: 1,
+                  title: '',
+                  body: 'مرحبا بك في تطبيقنا',
+                  payload: 'welcome',
+                );
+              },
+              icon: Icon(Icons.notification_add),
             ),
           ],
         ),
