@@ -39,7 +39,7 @@ class ChooseLocationButton extends StatelessWidget {
           );
           context.pushNamedAndRemoveUntil(
             Routes.bottomNavBar,
-            predicate: (route) => true,
+            predicate: (route) => false,
           );
         } else {
           ScaffoldMessenger.of(

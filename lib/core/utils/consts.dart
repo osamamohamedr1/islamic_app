@@ -6,6 +6,6 @@ const String themeBox = 'themeBox';
 const String audioBox = 'themeBox';
 
 const String userLocationBox = 'locationBox3';
-const String locationLat = 'locationLat6';
-const String locationLong = 'locationLong6';
-const String locationName = 'locationName6';
+const String locationLat = 'locationLat7';
+const String locationLong = 'locationLong7';
+const String locationName = 'locationName7';

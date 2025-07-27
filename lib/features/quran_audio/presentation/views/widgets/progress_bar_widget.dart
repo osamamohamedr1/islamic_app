@@ -32,9 +32,9 @@ class ProgressBarWidget extends StatelessWidget {
       baseBarColor: ColorsManger.grey,
       bufferedBarColor: Colors.blue.shade800,
       thumbColor: isDark ? Colors.white : ColorsManger.primary,
-      timeLabelTextStyle: Theme.of(
-        context,
-      ).textTheme.bodySmall!.copyWith(color: ColorsManger.primary),
+      timeLabelTextStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+        color: isDark ? Colors.white : ColorsManger.primary,
+      ),
       timeLabelPadding: 4,
       barHeight: 3.0,
       thumbRadius: 6.0,
