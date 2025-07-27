@@ -7,6 +7,7 @@ import 'package:islamic_app/core/functions/marker_resizer_fun.dart';
 import 'package:islamic_app/core/functions/masjd_route_sheet.dart';
 import 'package:islamic_app/core/themes/colors_manger.dart';
 import 'package:islamic_app/core/utils/assets.dart';
+import 'package:islamic_app/core/utils/extensions.dart';
 import 'package:islamic_app/features/find_nearest_masjd/presentation/manger/cubit/map_cubit.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
@@ -146,7 +147,7 @@ class _FindNearestMasjdViewState extends State<FindNearestMasjdView> {
 
                 Positioned(
                   top: 50,
-                  right: 20,
+                  left: 20,
                   child: CircleAvatar(
                     backgroundColor: ColorsManger.darkBLue,
                     radius: 25,
@@ -169,7 +170,7 @@ class _FindNearestMasjdViewState extends State<FindNearestMasjdView> {
 
                 Positioned(
                   top: 110,
-                  right: 20,
+                  left: 20,
                   child: CircleAvatar(
                     backgroundColor: ColorsManger.darkBLue,
                     radius: 25,
@@ -180,6 +181,27 @@ class _FindNearestMasjdViewState extends State<FindNearestMasjdView> {
                       },
 
                       icon: Icon(Icons.assistant_navigation, size: 30),
+                    ),
+                  ),
+                ),
+
+                Positioned(
+                  top: 50,
+                  right: 20,
+                  child: CircleAvatar(
+                    backgroundColor: ColorsManger.lighterGrey,
+                    radius: 25,
+                    child: IconButton(
+                      tooltip: 'رجوع',
+                      onPressed: () {
+                        context.pop();
+                      },
+
+                      icon: Icon(
+                        Icons.arrow_back_outlined,
+                        size: 30,
+                        color: ColorsManger.primary,
+                      ),
                     ),
                   ),
                 ),
