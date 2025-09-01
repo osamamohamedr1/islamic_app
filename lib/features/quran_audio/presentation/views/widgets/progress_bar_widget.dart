@@ -22,17 +22,19 @@ class ProgressBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return ProgressBar(
       progress: _position,
       buffered: _buffered,
       total: _duration ?? Duration.zero,
-      progressBarColor: ColorsManger.primary,
+      progressBarColor: isDark ? Colors.white : ColorsManger.primary,
       baseBarColor: ColorsManger.grey,
       bufferedBarColor: Colors.blue.shade800,
-      thumbColor: ColorsManger.primary,
-      timeLabelTextStyle: Theme.of(
-        context,
-      ).textTheme.bodySmall!.copyWith(color: ColorsManger.primary),
+      thumbColor: isDark ? Colors.white : ColorsManger.primary,
+      timeLabelTextStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+        color: isDark ? Colors.white : ColorsManger.primary,
+      ),
       timeLabelPadding: 4,
       barHeight: 3.0,
       thumbRadius: 6.0,

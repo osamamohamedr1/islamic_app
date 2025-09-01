@@ -71,7 +71,9 @@ class AzkarCategorySection extends StatelessWidget {
                 child: AzkarItem(
                   title: 'أقرب المساجد لك',
                   iconPath: Assets.svgsNearestMosque,
-                  onTap: () {},
+                  onTap: () {
+                    context.pushNamed(Routes.nearestMasjd);
+                  },
                 ),
               ),
               Expanded(

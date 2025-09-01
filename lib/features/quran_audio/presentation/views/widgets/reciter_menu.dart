@@ -14,14 +14,15 @@ class ReciterDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Padding(
       padding: const EdgeInsets.only(right: 12),
       child: DropdownButton<ReciterModel>(
         value: currentReciter,
         underline: const SizedBox.shrink(),
-        dropdownColor: Colors.white,
-        iconEnabledColor: ColorsManger.primary,
-
+        dropdownColor: isDark ? ColorsManger.primary : Colors.white,
+        iconEnabledColor: isDark ? Colors.white : ColorsManger.primary,
         style: Theme.of(
           context,
         ).textTheme.bodyMedium!.copyWith(color: Colors.black),
@@ -35,9 +36,7 @@ class ReciterDropdown extends StatelessWidget {
                 value: reciter,
                 child: Text(
                   reciter.nameAr,
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodyMedium!.copyWith(color: ColorsManger.primary),
+                  style: Theme.of(context).textTheme.bodyMedium!,
                 ),
               ),
             )

@@ -8,4 +8,6 @@ class Routes {
   static const String differentAzkarDetails = '/differentAzkarDetails';
   static const String favoriteAzkar = '/favoriteAzkar';
   static const String tasbeh = '/tasbeh';
+  static const String nearestMasjd = '/quranAudio';
+  static const String chooseLocation = '/chooseLocation';
 }

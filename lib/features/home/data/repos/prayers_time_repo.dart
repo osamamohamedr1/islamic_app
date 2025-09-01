@@ -1,15 +1,19 @@
 import 'package:adhan/adhan.dart';
 import 'package:dartz/dartz.dart';
 import 'package:islamic_app/core/utils/assets.dart';
+import 'package:islamic_app/core/utils/cache_helper.dart';
+import 'package:islamic_app/core/utils/consts.dart';
 import 'package:islamic_app/core/utils/failure.dart';
 import 'package:islamic_app/features/home/data/models/prayer_model.dart';
 
 class PrayersTimeRepo {
   Either<Failure, List<PrayerModel>> getPrayerTimes() {
+    double lat = CacheHelper.getData(key: locationLat) ?? 30.033333;
+    double long = CacheHelper.getData(key: locationLat) ?? 31.233334;
     try {
-      Coordinates coordinates = Coordinates(30.033333, 31.233334);
-      final params = CalculationMethod.karachi.getParameters();
-      params.madhab = Madhab.hanafi;
+      Coordinates coordinates = Coordinates(lat, long);
+      final params = CalculationMethod.egyptian.getParameters();
+      params.madhab = Madhab.shafi;
       final prayerTimes = PrayerTimes.today(coordinates, params);
       final List<PrayerModel> prayerModelsList = [
         PrayerModel(

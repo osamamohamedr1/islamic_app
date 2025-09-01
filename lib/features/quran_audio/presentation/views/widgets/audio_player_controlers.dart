@@ -35,16 +35,17 @@ class AudioPlayerControls extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
 
-        color: Colors.white,
+        color: isDark ? ColorsManger.darkCard : Colors.white,
 
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.shade300,
+            color: isDark ? ColorsManger.darkCard : Colors.grey.shade300,
             blurRadius: 10,
             offset: const Offset(0, -2),
           ),
@@ -68,20 +69,18 @@ class AudioPlayerControls extends StatelessWidget {
               Expanded(
                 child: Text(
                   'سورة ${currentSurahName ?? Hive.box(audioBox).get('surah') ?? 'الفاتحة'}',
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodyMedium!.copyWith(color: ColorsManger.primary),
+                  style: Theme.of(context).textTheme.bodyMedium!,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
               isLoading
-                  ? const SizedBox(
+                  ? SizedBox(
                       width: 75,
                       height: 75,
                       child: Padding(
                         padding: EdgeInsets.all(20),
                         child: CircularProgressIndicator(
-                          color: ColorsManger.primary,
+                          color: isDark ? Colors.white : ColorsManger.primary,
                           strokeWidth: 3,
                         ),
                       ),
@@ -94,7 +93,7 @@ class AudioPlayerControls extends StatelessWidget {
                         size: 65,
                       ),
                       onPressed: onTogglePlayPause,
-                      color: ColorsManger.primary,
+                      color: isDark ? Colors.white : ColorsManger.primary,
                     ),
               Expanded(
                 child: ReciterDropdown(

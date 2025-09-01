@@ -4,6 +4,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:islamic_app/core/routes/app_router.dart';
 import 'package:islamic_app/core/routes/routes.dart';
 import 'package:islamic_app/core/themes/app_themes.dart';
+import 'package:islamic_app/core/utils/cache_helper.dart';
+import 'package:islamic_app/core/utils/consts.dart';
 import 'package:islamic_app/core/utils/dependency_injection.dart';
 import 'package:islamic_app/features/azkar/data/repos/azkar_repo.dart';
 import 'package:islamic_app/features/azkar/presentation/manger/cubit/azkar_cubit_cubit.dart';
@@ -11,6 +13,8 @@ import 'package:islamic_app/features/bottom_nav_bar.dart/presentation/manger/the
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:islamic_app/features/favorites/data/repos/favorite_repo.dart';
 import 'package:islamic_app/features/favorites/presentation/manger/cubit/favorite_cubit.dart';
+import 'package:islamic_app/features/find_nearest_masjd/data/repos/google_map_repo.dart';
+import 'package:islamic_app/features/find_nearest_masjd/presentation/manger/cubit/map_cubit.dart';
 
 class IslamicApp extends StatelessWidget {
   const IslamicApp({super.key});
@@ -26,6 +30,7 @@ class IslamicApp extends StatelessWidget {
         BlocProvider(
           create: (context) => FavoriteCubit(getIt.get<FavoriteRepo>()),
         ),
+        BlocProvider(create: (context) => MapCubit(getIt.get<MapRepository>())),
       ],
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, themeState) {
@@ -50,7 +55,9 @@ class IslamicApp extends StatelessWidget {
                   themeMode: themeState,
                   darkTheme: AppThemes.darkTheme,
                   theme: AppThemes.lightTheme,
-                  initialRoute: Routes.bottomNavBar,
+                  initialRoute: CacheHelper.getData(key: locationName) == null
+                      ? Routes.chooseLocation
+                      : Routes.bottomNavBar,
                   onGenerateRoute: onGenerateRoute,
                   builder: (context, child) {
                     return Directionality(

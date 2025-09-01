@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:islamic_app/features/bottom_nav_bar.dart/presentation/manger/theme/theme_cubit.dart';
+import 'package:islamic_app/features/prayer_notifications/presentation/views/notification_toggle.dart';
 import 'package:islamic_app/features/settings/presentation/views/widgets/setting_item.dart';
 
 class SettingsView extends StatelessWidget {
@@ -48,15 +49,7 @@ class SettingsView extends StatelessWidget {
               ),
             ),
           ),
-          SettingItem(
-            title: 'التنبيهات',
-            widget: Switch(
-              value: true,
-              onChanged: (value) {
-                value = !value;
-              },
-            ),
-          ),
+          NotificationToggle(),
         ],
       ),
     );

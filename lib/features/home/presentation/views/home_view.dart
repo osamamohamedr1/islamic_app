@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:islamic_app/core/utils/cache_helper.dart';
+import 'package:islamic_app/core/utils/consts.dart';
 import 'package:islamic_app/features/home/data/repos/prayers_time_repo.dart';
 import 'package:islamic_app/features/home/presentation/manger/prayer_time_cubit/prayers_time_cubit.dart';
 import 'package:islamic_app/features/home/presentation/views/widgets/all_custom_container.dart';
@@ -12,19 +14,25 @@ import 'package:jhijri/_src/_jHijri.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
-
   @override
   Widget build(BuildContext context) {
     String formattedDate = DateFormat(
       'd MMMM y',
       'ar_EG',
     ).format(DateTime.now());
-    return BlocProvider(
-      create: (context) =>
-          PrayersTimeCubit(PrayersTimeRepo())..getPrayerTimes(),
-
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) =>
+              PrayersTimeCubit(PrayersTimeRepo())..getPrayerTimes(),
+        ),
+      ],
       child: Scaffold(
-        appBar: homeAppBar(formattedDate, context),
+        appBar: homeAppBar(
+          formattedDate,
+          context,
+          CacheHelper.getData(key: locationName),
+        ),
         body: SingleChildScrollView(
           child: Column(
             spacing: 16,
@@ -49,7 +57,11 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  AppBar homeAppBar(String formattedDate, BuildContext context) => AppBar(
+  AppBar homeAppBar(
+    String formattedDate,
+    BuildContext context,
+    String? location,
+  ) => AppBar(
     scrolledUnderElevation: 0,
     title: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,7 +97,7 @@ class HomeView extends StatelessWidget {
               ),
             ),
             Text(
-              'القاهرة',
+              location ?? 'القاهرة',
               style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,

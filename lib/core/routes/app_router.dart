@@ -7,7 +7,10 @@ import 'package:islamic_app/features/azkar/presentation/views/sleep_azkar_view.d
 import 'package:islamic_app/features/azkar/presentation/views/widgets/azkar_different_collection_item.dart';
 import 'package:islamic_app/features/bottom_nav_bar.dart/presentation/views/bottom_nav_bar_view.dart';
 import 'package:islamic_app/features/azkar/presentation/views/all_doua_view.dart';
+import 'package:islamic_app/features/choose_location/presentation/manger/cubit/user_location_cubit.dart';
+import 'package:islamic_app/features/choose_location/presentation/views/choose_location_view.dart';
 import 'package:islamic_app/features/favorites/presentation/views/favorite_view.dart';
+import 'package:islamic_app/features/find_nearest_masjd/presentation/views/find_nearest_masjd_view.dart';
 import 'package:islamic_app/features/home/presentation/views/home_view.dart';
 import 'package:islamic_app/features/quran_audio/presentation/manger/surah_cubit/surah_cubit.dart';
 
@@ -25,6 +28,7 @@ Route onGenerateRoute(RouteSettings settting) {
         builder: (context) {
           return BlocProvider(
             create: (context) => SurahCubit()..getSuraList(),
+
             child: BottomNavBarView(),
           );
         },
@@ -33,6 +37,16 @@ Route onGenerateRoute(RouteSettings settting) {
       return MaterialPageRoute(
         builder: (context) {
           return AllDuaView();
+        },
+      );
+
+    case Routes.chooseLocation:
+      return MaterialPageRoute(
+        builder: (context) {
+          return BlocProvider(
+            create: (context) => UserLocationCubit()..loadCities(),
+            child: ChooseLocationView(),
+          );
         },
       );
     case Routes.morningAndNightAzkar:
@@ -63,6 +77,12 @@ Route onGenerateRoute(RouteSettings settting) {
       return MaterialPageRoute(
         builder: (context) {
           return FavoriteView();
+        },
+      );
+    case Routes.nearestMasjd:
+      return MaterialPageRoute(
+        builder: (context) {
+          return FindNearestMasjdView();
         },
       );
 
